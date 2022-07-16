@@ -5,7 +5,11 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    const int CUTOFF = 1000;
+    public float SPEED = 2f;
+
+    private const int ASTAR_CUTOFF = 1000;
+
+    private List<Vector2Int> route = new List<Vector2Int>();
 
     class Tile
     {
@@ -37,29 +41,64 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-    }
-
-    public void Move(Vector2Int target)
-    {
-        Vector2Int currentPosition = new Vector2Int(Mathf.RoundToInt(transform.position.x), Mathf.RoundToInt(transform.position.y));
-
-        List<Vector2Int> route = this.AStar(target, currentPosition);
-
-        foreach(Vector2Int vector in route)
+        //there is still a path to be walked
+        if (this.route.Count > 0)
         {
-            Debug.Log(vector);
+            //Move a bit towards the next route position
+            if(this.Move())
+            {
+                route.RemoveAt(0);
+            }
         }
-        Debug.Log("");
     }
 
-    private List<Vector2Int> AStar(Vector2Int start, Vector2Int target)
+    //Move a bit along the route, returns whether the first element in route has been reached
+    private bool Move()
+    {
+        Vector2 moveDirection = (route[0] - (Vector2)transform.position);
+        moveDirection.Normalize();
+        moveDirection *= SPEED * Time.deltaTime;
+        Vector3 moveDirection3D = new Vector3(moveDirection.x, moveDirection.y, 0);
+        Vector3 result = transform.position + moveDirection3D;
+
+        Vector2 transformDelta = route[0] - (Vector2)transform.position;
+        Vector2 resultDelta = route[0] - (Vector2)result;
+        transformDelta.Normalize();
+        resultDelta.Normalize();
+        float xProduct = transformDelta.x * resultDelta.x;
+        float yProduct = transformDelta.y * resultDelta.y;
+
+        if (xProduct < 0 || yProduct < 0)
+        {
+            //arrived at new position
+            transform.position = new Vector3(route[0].x, route[0].y, 0);
+            return true;
+        }
+        else
+        {
+            transform.position = result;
+            return false;
+        }
+    }
+
+    public void InitiateMove(Vector2Int target)
+    {
+        if(this.route.Count > 0)
+        {
+            return;
+        }
+
+        Vector2Int currentPosition = new Vector2Int(Mathf.RoundToInt(transform.position.x), Mathf.RoundToInt(transform.position.y));
+        route = this.calculateRoute(target, currentPosition);
+    }
+
+    private List<Vector2Int> calculateRoute(Vector2Int start, Vector2Int target)
     {
         List<Tile> openList = new List<Tile>() { new Tile(start, Vector2Int.Distance(start, target), 0, null) };
         List<Vector2Int> closedList = new List<Vector2Int>();
         int i = 0;
 
-        while(openList.Count > 0 && i < CUTOFF)
+        while(openList.Count > 0 && i < ASTAR_CUTOFF)
         {
             //sort list by f value
             openList.Sort((x, y) =>
@@ -78,13 +117,13 @@ public class PlayerMovement : MonoBehaviour
             });
 
             Tile currentPosition = openList[0];
-            openList.Remove(currentPosition);
+            openList.RemoveAt(0);
             closedList.Add(currentPosition.position);
 
             if(currentPosition.position.x == target.x && currentPosition.position.y == target.y)
             {
                 //final tile has been reached, compute route and return
-                List<Vector2Int> route = new List<Vector2Int>() { currentPosition.position };
+                List<Vector2Int> route = new List<Vector2Int>();
 
                 while(currentPosition.previousTile != null)
                 {
@@ -105,7 +144,7 @@ public class PlayerMovement : MonoBehaviour
                     //check if neighbor is in openList
                     if (tile.HasPosition(neighbor))
                     {
-                        //neighbor is equal to tile, check distance is shorter
+                        //neighbor is equal to tile, check if distance is shorter
                         if(currentPosition.distance + 1 < tile.distance)
                         {
                             //update f and distance
@@ -155,5 +194,15 @@ public class PlayerMovement : MonoBehaviour
         //TODO filter for walkability
 
         return neighbors;
+    }
+
+    public List<Vector2Int> GetRoute()
+    {
+        return this.route;
+    }
+
+    public void SetRoute(List<Vector2Int> value)
+    {
+        this.route = value;
     }
 }

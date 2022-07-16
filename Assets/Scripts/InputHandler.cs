@@ -21,7 +21,7 @@ public class InputHandler : MonoBehaviour
         if (Input.GetMouseButtonUp(0) && !IsMouseOverUIElement())
         {
             Vector2 target = cam.ScreenToWorldPoint(Input.mousePosition);
-            playerMovement.Move(new Vector2Int(Mathf.RoundToInt(target.x), Mathf.RoundToInt(target.y)));
+            playerMovement.InitiateMove(new Vector2Int(Mathf.RoundToInt(target.x), Mathf.RoundToInt(target.y)));
         }
     }
 
