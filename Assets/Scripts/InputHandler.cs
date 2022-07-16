@@ -20,7 +20,7 @@ public class InputHandler : MonoBehaviour
         if (Input.GetMouseButtonUp(0))
         {
             Vector2 target = cam.ScreenToWorldPoint(Input.mousePosition);
-            Debug.Log(target);
+            playerMovement.Move(new Vector2Int(Mathf.RoundToInt(target.x), Mathf.RoundToInt(target.y)));
         }
     }
 }
