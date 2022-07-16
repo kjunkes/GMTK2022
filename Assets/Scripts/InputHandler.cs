@@ -5,14 +5,14 @@ using UnityEngine.EventSystems;
 
 public class InputHandler : MonoBehaviour
 {
-    public PlayerMovement playerMovement;
-
+    private PlayerMovement playerMovement;
     private GameLoop gameLoop;
     private Camera cam;
 
     // Start is called before the first frame update
     void Start()
     {
+        playerMovement = FindObjectOfType<PlayerMovement>();
         gameLoop = FindObjectOfType<GameLoop>();
         cam = Camera.main;
     }
@@ -20,7 +20,7 @@ public class InputHandler : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButtonUp(0) && this.gameLoop.CanWalk() && !IsMouseOverUIElement())
+        if (Input.GetMouseButtonDown(0) && this.gameLoop.CanWalk() && !IsMouseOverUIElement())
         {
             Vector2 target = cam.ScreenToWorldPoint(Input.mousePosition);
             playerMovement.InitiateMove(new Vector2Int(Mathf.RoundToInt(target.x), Mathf.RoundToInt(target.y)));

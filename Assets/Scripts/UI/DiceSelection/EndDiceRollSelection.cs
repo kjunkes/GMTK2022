@@ -6,11 +6,12 @@ using UnityEngine.UI;
 public class EndDiceRollSelection : MonoBehaviour
 {
     private Button button;
-    public PlayerDice playerDice;
+    private PlayerDice playerDice;
 
     // Start is called before the first frame update
     void Start()
     {
+        playerDice = FindObjectOfType<PlayerDice>();
         button = gameObject.GetComponent(typeof(Button)) as Button;
         button.onClick.AddListener(EndRoll);
     }

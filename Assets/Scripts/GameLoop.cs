@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.Tilemaps;
 
 public class GameLoop : MonoBehaviour
 {
@@ -17,6 +19,8 @@ public class GameLoop : MonoBehaviour
     }
 
     public GameObject enemies;
+
+    public string nextLevel;
 
     private PlayerDice playerDice;
     private EndTurnButton endTurnButton;
@@ -50,7 +54,6 @@ public class GameLoop : MonoBehaviour
                 {
                     case PlayerActionState.DICE_SELECTION:
                         this.playerActionState = PlayerActionState.WALKING;
-
                         this.endTurnButton.enabled = true;
                         return;
                     case PlayerActionState.WALKING:
@@ -102,8 +105,25 @@ public class GameLoop : MonoBehaviour
         {
             this.idleEnemies[0].StartAction();
         }
-        else{
+        else
+        {
             IncrementTurnState();
+        }
+    }
+
+    public void EndLevel()
+    {
+        StartCoroutine(LoadNextScene());
+    }
+
+    IEnumerator LoadNextScene()
+    {
+        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(nextLevel);
+
+        // Wait until the asynchronous scene fully loads
+        while (!asyncLoad.isDone)
+        {
+            yield return null;
         }
     }
 

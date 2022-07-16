@@ -16,7 +16,10 @@ public class PlayerMovement : MonoBehaviour
     private const int ASTAR_CUTOFF = 1000;
 
     //insert names of passable Tiles
-    private List<String> passableTiles = new List<string>() {"green", "red", "64test"};
+    private List<string> passableTiles = new List<string>() {"green", "red", "64test"};
+
+    //insert names of ending Tiles
+    private List<string> endingTiles = new List<string>() { "red" };
 
     private List<Vector2Int> route = new List<Vector2Int>();
 
@@ -60,7 +63,8 @@ public class PlayerMovement : MonoBehaviour
                 
                 if(route.Count == 0)
                 {
-                    gameLoop.IncrementTurnState();
+                    CheckLevelComplete();
+                    this.gameLoop.IncrementTurnState();
                 }
             }
         }
@@ -111,7 +115,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
         Vector2Int currentPosition = new Vector2Int(Mathf.RoundToInt(transform.position.x), Mathf.RoundToInt(transform.position.y));
-        route = this.calculateRoute(target, currentPosition);
+        route = this.CalculateRoute(target, currentPosition);
 
         //user clicked on his own position -> does not want to move this round
         if(route == null)
@@ -122,7 +126,7 @@ public class PlayerMovement : MonoBehaviour
     }
 
     //A* algorithm
-    private List<Vector2Int> calculateRoute(Vector2Int start, Vector2Int target)
+    private List<Vector2Int> CalculateRoute(Vector2Int start, Vector2Int target)
     {
         //the user clicked on his own position
         if(start.x == target.x && start.y == target.y)
@@ -175,7 +179,7 @@ public class PlayerMovement : MonoBehaviour
                 return route;
             }
 
-            foreach(Vector2Int neighbor in findNeighbors(currentPosition.position, closedList))
+            foreach(Vector2Int neighbor in FindNeighbors(currentPosition.position, closedList))
             {
                 bool isInOpenList = false;
 
@@ -209,7 +213,7 @@ public class PlayerMovement : MonoBehaviour
         return new List<Vector2Int>();
     }
 
-    private List<Vector2Int> findNeighbors(Vector2Int position, List<Vector2Int> closedList)
+    private List<Vector2Int> FindNeighbors(Vector2Int position, List<Vector2Int> closedList)
     {
         List<Vector2Int> neighbors = new List<Vector2Int>();
 
@@ -236,6 +240,26 @@ public class PlayerMovement : MonoBehaviour
         return neighbors;
     }
 
+    private bool CheckLevelComplete()
+    {
+        TileBase tileBase = tilemap.GetTile(new Vector3Int((int)transform.position.x, (int)transform.position.y, 0));
+
+        if (tileBase == null)//this should never trigger if wall detection and level layout are done correctly
+        {
+            return false;
+        }
+
+        foreach (string tile in endingTiles)
+        {
+            if (tileBase.name == tile)
+            {
+                this.gameLoop.EndLevel();
+            }
+        }
+
+        return false;
+    }
+
     private bool CheckWalkability(Vector2Int position)
     {
         TileBase tileBase = tilemap.GetTile(new Vector3Int(position.x, position.y, 0));
@@ -245,7 +269,7 @@ public class PlayerMovement : MonoBehaviour
             return false;
         }
 
-        foreach (String tile in passableTiles)
+        foreach (string tile in passableTiles)
         {
             if (tileBase.name == tile)
             {
