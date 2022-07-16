@@ -288,6 +288,37 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &74229346
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 74229347}
+  m_Layer: 0
+  m_Name: Dices
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &74229347
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 74229346}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 620.91644, y: 244.7118, z: -0.87428474}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &81938215
 GameObject:
   m_ObjectHideFlags: 0
@@ -299,7 +330,6 @@ GameObject:
   - component: {fileID: 81938216}
   - component: {fileID: 81938218}
   - component: {fileID: 81938217}
-  - component: {fileID: 81938219}
   m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -424,18 +454,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 81938215}
   m_CullTransparentMesh: 1
---- !u!114 &81938219
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 81938215}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 47a48d1ff4339184a8c66309ed6984d7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &293024562
 GameObject:
   m_ObjectHideFlags: 0
@@ -2342,6 +2360,7 @@ GameObject:
   - component: {fileID: 1382399028}
   - component: {fileID: 1382399027}
   - component: {fileID: 1382399026}
+  - component: {fileID: 1382399029}
   m_Layer: 5
   m_Name: Button
   m_TagString: Untagged
@@ -2452,6 +2471,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1382399024}
   m_CullTransparentMesh: 1
+--- !u!114 &1382399029
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1382399024}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 47a48d1ff4339184a8c66309ed6984d7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameLoop: {fileID: 833735258}
 --- !u!1 &1488478331
 GameObject:
   m_ObjectHideFlags: 0
@@ -2848,3 +2880,4 @@ MonoBehaviour:
   lowDiceCount: 0
   doubleDiceCount: 0
   gameLoop: {fileID: 833735258}
+  dices: {fileID: 74229346}
