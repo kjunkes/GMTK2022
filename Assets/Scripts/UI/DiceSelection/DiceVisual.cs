@@ -27,7 +27,7 @@ public class DiceVisual : MonoBehaviour
     {
         currentNumbers = playerDice.dice[diceId].numbers;
         diceText.text = currentNumbers[index].ToString();
-        Debug.Log(currentNumbers[1].ToString());
+        gameObject.GetComponent<Image>().color = playerDice.dice[diceId].color;
     }
     // Update is called once per frame
     void Update()

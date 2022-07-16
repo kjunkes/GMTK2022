@@ -10,12 +10,19 @@ public class PlayerDice : MonoBehaviour
     public int highDiceCount;
     public int lowDiceCount;
     public int doubleDiceCount;
+
+    public Color normalDiceColor;
+    public Color highDiceColor;
+    public Color lowDiceColor;
+    public Color doubleDiceColor;
+
     public GameLoop gameLoop;
     public GameObject dices;
 
     public class Dice
     {
         public int[] numbers;
+        public Color color;
     }
 
     public Dice[] dice;
@@ -34,6 +41,8 @@ public class PlayerDice : MonoBehaviour
         {
             dice[i] = new Dice();
             dice[i].numbers = normalDice;
+            dice[i].color = normalDiceColor;
+            Debug.Log(normalDiceColor.ToString());
         }
 
         // Create high dice 4-6
@@ -44,6 +53,7 @@ public class PlayerDice : MonoBehaviour
         {
             dice[i] = new Dice();
             dice[i].numbers = highDice;
+            dice[i].color = highDiceColor;
         }
 
         // Create low dice 1-3
@@ -54,6 +64,7 @@ public class PlayerDice : MonoBehaviour
         {
             dice[i] = new Dice();
             dice[i].numbers = lowDice;
+            dice[i].color = lowDiceColor;
         }
 
         // Create double dice 2-12
@@ -64,6 +75,7 @@ public class PlayerDice : MonoBehaviour
         {
             dice[i] = new Dice();
             dice[i].numbers = doubleDice;
+            dice[i].color = doubleDiceColor;
         }
 
         foreach(Transform child in dices.transform)
