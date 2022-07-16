@@ -1,0 +1,15 @@
+Player turn
+	Würfel wählen
+	falls gewählt:
+		Würfeln
+	Laufen
+	check for level end
+	Fähigkeiten nutzen
+Enemies turn
+	für jeden Gegner:
+		Plan festlegen (welche Fähigkeit(en))
+		laufen
+		Fähigkeiten nutzen 
+		if player death:
+			Reset level
+		
