@@ -6,6 +6,7 @@ using UnityEngine.EventSystems;
 public class InputHandler : MonoBehaviour
 {
     public PlayerMovement playerMovement;
+    public GameLoop gameLoop;
 
     private Camera cam;
 
@@ -18,7 +19,7 @@ public class InputHandler : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButtonUp(0) && !IsMouseOverUIElement())
+        if (this.gameLoop.CanWalk() && Input.GetMouseButtonUp(0) && !IsMouseOverUIElement())
         {
             Vector2 target = cam.ScreenToWorldPoint(Input.mousePosition);
             playerMovement.InitiateMove(new Vector2Int(Mathf.RoundToInt(target.x), Mathf.RoundToInt(target.y)));

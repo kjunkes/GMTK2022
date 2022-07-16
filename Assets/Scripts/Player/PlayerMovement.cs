@@ -10,6 +10,7 @@ public class PlayerMovement : MonoBehaviour
     public float SPEED = 2f;
 
     public Tilemap tilemap;
+    public GameLoop gameLoop;
 
     private const int ASTAR_CUTOFF = 1000;
 
@@ -55,6 +56,11 @@ public class PlayerMovement : MonoBehaviour
             if(this.Move())
             {
                 route.RemoveAt(0);
+                
+                if(route.Count == 0)
+                {
+                    gameLoop.IncrementTurnState();
+                }
             }
         }
     }
