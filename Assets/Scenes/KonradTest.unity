@@ -153,7 +153,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemies: {fileID: 911925746}
-  playerDice: {fileID: 1923192468}
+  nextLevel: 
 --- !u!4 &16062115
 Transform:
   m_ObjectHideFlags: 0
@@ -800,7 +800,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47a48d1ff4339184a8c66309ed6984d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameLoop: {fileID: 16062114}
 --- !u!114 &337609557
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3838,7 +3837,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed764ce0888e4432b8528d0e9defceca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerDice: {fileID: 1923192468}
 --- !u!1 &1339629415
 GameObject:
   m_ObjectHideFlags: 0
@@ -4607,8 +4605,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b230afa327c51b47a4343aebd287046, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerMovement: {fileID: 1923192466}
-  gameLoop: {fileID: 16062114}
 --- !u!4 &1605641615
 Transform:
   m_ObjectHideFlags: 0
@@ -5184,8 +5180,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SPEED: 3
+  WALKING_RANGE: 4
   tilemap: {fileID: 565024134}
-  gameLoop: {fileID: 16062114}
 --- !u!114 &1923192467
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5225,6 +5221,7 @@ MonoBehaviour:
   gameLoop: {fileID: 16062114}
   dices: {fileID: 1080827785}
   diceSelectionWindow: {fileID: 1026485494}
+  playerEnergy: {fileID: 1923192467}
 --- !u!1 &1975133897
 GameObject:
   m_ObjectHideFlags: 0

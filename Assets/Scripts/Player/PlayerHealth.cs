@@ -3,10 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class PlayerHealth : MonoBehaviour
+public class PlayerHealth : Health
 {
-    public float health;
-    public float maxHealth;
     public HealthBar healthBar;
     public HealthText healthText;
 
@@ -21,10 +19,5 @@ public class PlayerHealth : MonoBehaviour
     void Update()
     {
 
-    }
-
-    public float GetHealth()
-    {
-        return this.health;
     }
 }

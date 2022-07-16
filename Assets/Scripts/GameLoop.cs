@@ -115,14 +115,12 @@ public class GameLoop : MonoBehaviour
         }
     }
 
-    public bool CheckForPlayerDeath()
+    public void CheckForPlayerDeath()
     {
         if (playerHealth.GetHealth() <= 0)
         {
-            return true;
+            //RESET
         }
-
-        return false;
     }
 
     public void EndLevel()

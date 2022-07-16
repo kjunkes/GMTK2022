@@ -5729,6 +5729,7 @@ MonoBehaviour:
   gameLoop: {fileID: 16062114}
   dices: {fileID: 1080827785}
   diceSelectionWindow: {fileID: 1026485494}
+  playerEnergy: {fileID: 0}
 --- !u!1 &1975133897
 GameObject:
   m_ObjectHideFlags: 0
@@ -5740,6 +5741,7 @@ GameObject:
   - component: {fileID: 1975133898}
   - component: {fileID: 1975133900}
   - component: {fileID: 1975133899}
+  - component: {fileID: 1975133901}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -5826,6 +5828,18 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1975133901
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1975133897}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca51cb74cb127004b990667ad3de4694, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2037420651
 GameObject:
   m_ObjectHideFlags: 0
