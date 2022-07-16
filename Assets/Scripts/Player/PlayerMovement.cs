@@ -53,7 +53,7 @@ public class PlayerMovement : MonoBehaviour
         if (this.route.Count > 0)
         {
             //Move a bit towards the next route position
-            if(this.Move())
+            if(this.MoveAlongRoute())
             {
                 route.RemoveAt(0);
                 
@@ -66,7 +66,7 @@ public class PlayerMovement : MonoBehaviour
     }
 
     //Move a bit along the route, returns whether the first element in route has been reached
-    private bool Move()
+    private bool MoveAlongRoute()
     {
         Vector2 moveDirection = (route[0] - (Vector2)transform.position);
         moveDirection.Normalize();
@@ -84,14 +84,21 @@ public class PlayerMovement : MonoBehaviour
         if (xProduct < 0 || yProduct < 0)
         {
             //arrived at new position
-            transform.position = new Vector3(route[0].x, route[0].y, 0);
+            this.MoveTo(new Vector3(route[0].x, route[0].y, 0));
             return true;
         }
         else
         {
-            transform.position = result;
+            this.MoveTo(result);
             return false;
         }
+    }
+
+    private void MoveTo(Vector3 target)
+    {
+        transform.position = target;
+        Transform cameraTransform = Camera.main.transform;
+        cameraTransform.position = new Vector3(target.x, target.y, cameraTransform.position.z);
     }
 
     public void InitiateMove(Vector2Int target)
