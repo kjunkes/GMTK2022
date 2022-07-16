@@ -16,7 +16,8 @@ public class PlayerMovement : MonoBehaviour
     private AStar astar;
 
     //insert names of passable Tiles
-    private List<string> passableTiles = new List<string>() {"green", "red", "64test"};
+    private List<string> passableTiles = new List<string>()
+    {"green", "red", "64test", "woodFloor", "WoodWall"};
 
     //insert names of ending Tiles
     private List<string> endingTiles = new List<string>() { "red" };
