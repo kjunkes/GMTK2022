@@ -8,6 +8,7 @@ public class ActionToken : MonoBehaviour
 
     private bool hasActionToken = false;
     private bool hasActedThisTurn = false;
+    private bool hasMovedThisTurn = false;
 
     // Start is called before the first frame update
     void Start()
@@ -31,6 +32,21 @@ public class ActionToken : MonoBehaviour
         return this.hasActedThisTurn;
     }
 
+    public void SetHasActedThisTurn(bool value)
+    {
+        this.hasActedThisTurn = value;
+    }
+
+    public bool GetHasMovedThisTurn()
+    {
+        return this.hasMovedThisTurn;
+    }
+
+    public void SetHasMovedThisTurn(bool value)
+    {
+        this.hasMovedThisTurn = value;
+    }
+
     public void StartAction()
     {
         this.hasActionToken = true;
@@ -39,7 +55,15 @@ public class ActionToken : MonoBehaviour
     public void EndAction()
     {
         this.hasActedThisTurn = true;
+        this.hasMovedThisTurn = true;
         this.hasActionToken = false;
         this.gameLoop.PassOnToken();
+    }
+
+    public void Reset()
+    {
+        this.hasActedThisTurn = false;
+        this.hasMovedThisTurn = false;
+        this.hasActionToken = false;
     }
 }

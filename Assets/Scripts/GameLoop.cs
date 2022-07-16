@@ -1,11 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.Tilemaps;
+using TMPro;
 
 public class GameLoop : MonoBehaviour
 {
+    public TextMeshProUGUI turnText;
+    public TextMeshProUGUI playerActionStateText;
+
     public enum Turn {
         PLAYER,
         ENEMY
@@ -29,6 +33,9 @@ public class GameLoop : MonoBehaviour
     //List of all those enemies that are yet to act in the current turn
     private List<ActionToken> idleEnemies = new List<ActionToken>();
 
+    //List of Objects that need to be enabled and reset in case of player death
+    private List<Health> resetList = new List<Health>();
+
     //Game State
     private Turn currentTurn = Turn.PLAYER;
     private PlayerActionState playerActionState = PlayerActionState.DICE_SELECTION;
@@ -44,7 +51,24 @@ public class GameLoop : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(currentTurn == Turn.ENEMY)
+        {
+            turnText.text = "ENEMY";
+        } else
+        {
+            turnText.text = "PLAYER";
+        }
 
+        if(playerActionState == PlayerActionState.DICE_SELECTION)
+        {
+            playerActionStateText.text = "DICE_SELECTION";
+        } else if(playerActionState == PlayerActionState.WALKING)
+        {
+            playerActionStateText.text = "WALKING";
+        } else
+        {
+            playerActionStateText.text = "ACTION";
+        }
     }
 
     public void IncrementTurnState()
@@ -64,15 +88,25 @@ public class GameLoop : MonoBehaviour
                     case PlayerActionState.ACTION:
                         this.currentTurn = Turn.ENEMY;
 
+                        this.idleEnemies.Clear();
+
                         foreach (Transform child in enemies.transform)
                         {
-                            this.idleEnemies.Add(child.GetComponent(typeof(ActionToken)) as ActionToken);
+                            ActionToken actionToken = child.GetComponent(typeof(ActionToken)) as ActionToken;
+                            actionToken.Reset();
+                            this.idleEnemies.Add(actionToken);
                         }
+
+                        this.idleEnemies = this.idleEnemies.Where(enemy =>
+                        {
+                            return enemy.isActiveAndEnabled;
+                        }).ToList();
 
                         if (this.idleEnemies.Count > 0)
                         {
                             this.idleEnemies[0].StartAction();
                         }
+
                         return;
                     default:
                         break;
@@ -119,7 +153,7 @@ public class GameLoop : MonoBehaviour
     {
         if (playerHealth.GetHealth() <= 0)
         {
-            //RESET
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
     }
 
@@ -137,6 +171,11 @@ public class GameLoop : MonoBehaviour
         {
             yield return null;
         }
+    }
+
+    public void AddToResetList(Health health)
+    {
+        this.resetList.Add(health);
     }
 
     public Turn GetCurrentTurn()

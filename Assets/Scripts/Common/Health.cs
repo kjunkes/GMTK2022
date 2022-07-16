@@ -10,7 +10,7 @@ public class Health : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
@@ -26,6 +26,6 @@ public class Health : MonoBehaviour
 
     public void SetHealth(float value)
     {
-        this.health = value;
+        this.health = Mathf.Max(value, 0);
     }
 }
