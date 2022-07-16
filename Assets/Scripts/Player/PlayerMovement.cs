@@ -1,13 +1,20 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class PlayerMovement : MonoBehaviour
 {
     public float SPEED = 2f;
 
+    public Tilemap tilemap;
+
     private const int ASTAR_CUTOFF = 1000;
+
+    //insert names of passable Tiles
+    private List<String> passableTiles = new List<string>() {"green", "red"};
 
     private List<Vector2Int> route = new List<Vector2Int>();
 
@@ -83,8 +90,9 @@ public class PlayerMovement : MonoBehaviour
 
     public void InitiateMove(Vector2Int target)
     {
-        if(this.route.Count > 0)
+        if(this.route.Count > 0 || !this.CheckWalkability(target))
         {
+            //if there is still a route to be walked or the target is not reachable, dont initiate a move
             return;
         }
 
@@ -92,6 +100,7 @@ public class PlayerMovement : MonoBehaviour
         route = this.calculateRoute(target, currentPosition);
     }
 
+    //A* algorithm
     private List<Vector2Int> calculateRoute(Vector2Int start, Vector2Int target)
     {
         List<Tile> openList = new List<Tile>() { new Tile(start, Vector2Int.Distance(start, target), 0, null) };
@@ -177,23 +186,42 @@ public class PlayerMovement : MonoBehaviour
         neighbors.Add(new Vector2Int(position.x, position.y + 1));
         neighbors.Add(new Vector2Int(position.x, position.y - 1));
 
-        //filter elements from closedList
-        neighbors = neighbors.Where(x =>
+        neighbors = neighbors.Where(neighbor =>
         {
-            foreach(Vector2Int position in closedList)
+            //filter neighbors that already made the closedList
+            foreach (Vector2Int position in closedList)
             {
-                if(x.x == position.x && x.y == position.y)
+                if(neighbor.x == position.x && neighbor.y == position.y)
                 {
                     return false;
                 }
             }
 
-            return true;
+            //filter neighbors that you cant step on
+            return this.CheckWalkability(neighbor);
         }).ToList();
 
-        //TODO filter for walkability
-
         return neighbors;
+    }
+
+    private bool CheckWalkability(Vector2Int position)
+    {
+        TileBase tileBase = tilemap.GetTile(new Vector3Int(position.x, position.y, 0));
+
+        if (tileBase == null)//this should never trigger if wall detection and level layout are done correctly
+        {
+            return false;
+        }
+
+        foreach (String tile in passableTiles)
+        {
+            if (tileBase.name == tile)
+            {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     public List<Vector2Int> GetRoute()
