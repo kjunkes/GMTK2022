@@ -18,6 +18,7 @@ public class PlayerDice : MonoBehaviour
 
     public GameLoop gameLoop;
     public GameObject dices;
+    public GameObject diceSelectionWindow;
 
     public class Dice
     {
@@ -92,6 +93,12 @@ public class PlayerDice : MonoBehaviour
 
     public void StartRollingDice()
     {
+        diceSelectionWindow.SetActive(true);
+    }
+
+    public void EndRollingDice()
+    {
+        diceSelectionWindow.SetActive(false);
         gameLoop.IncrementTurnState();
     }
 }

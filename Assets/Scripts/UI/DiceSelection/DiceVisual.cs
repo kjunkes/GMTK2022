@@ -25,9 +25,18 @@ public class DiceVisual : MonoBehaviour
 
     public void InitDice()
     {
-        currentNumbers = playerDice.dice[diceId].numbers;
-        diceText.text = currentNumbers[index].ToString();
-        gameObject.GetComponent<Image>().color = playerDice.dice[diceId].color;
+        if(diceId < playerDice.dice.Length)
+        {
+            gameObject.SetActive(true);
+            currentNumbers = playerDice.dice[diceId].numbers;
+            diceText.text = currentNumbers[index].ToString();
+            gameObject.GetComponent<Image>().color = playerDice.dice[diceId].color;
+        } else
+        {
+            gameObject.SetActive(false);
+            diceText.text = "";
+        }
+        
     }
     // Update is called once per frame
     void Update()
