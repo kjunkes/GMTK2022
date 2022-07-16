@@ -17,7 +17,9 @@ public class GameLoop : MonoBehaviour
     }
 
     public GameObject enemies;
-    public PlayerDice playerDice;
+
+    private PlayerDice playerDice;
+    private EndTurnButton endTurnButton;
 
     //List of all those enemies that are yet to act in the current turn
     private List<ActionToken> idleEnemies = new List<ActionToken>();
@@ -29,7 +31,8 @@ public class GameLoop : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        playerDice = FindObjectOfType<PlayerDice>();
+        endTurnButton = FindObjectOfType<EndTurnButton>();
     }
 
     // Update is called once per frame
@@ -47,6 +50,8 @@ public class GameLoop : MonoBehaviour
                 {
                     case PlayerActionState.DICE_SELECTION:
                         this.playerActionState = PlayerActionState.WALKING;
+
+                        this.endTurnButton.enabled = true;
                         return;
                     case PlayerActionState.WALKING:
                         this.playerActionState = PlayerActionState.ACTION;

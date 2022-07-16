@@ -8,10 +8,11 @@ using UnityEngine.Tilemaps;
 public class PlayerMovement : MonoBehaviour
 {
     public float SPEED = 2f;
+    public int WALKING_RANGE = 4;
 
     public Tilemap tilemap;
-    public GameLoop gameLoop;
 
+    private GameLoop gameLoop;
     private const int ASTAR_CUTOFF = 1000;
 
     //insert names of passable Tiles
@@ -43,7 +44,7 @@ public class PlayerMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        gameLoop = FindObjectOfType<GameLoop>();
     }
 
     // Update is called once per frame
@@ -111,11 +112,24 @@ public class PlayerMovement : MonoBehaviour
 
         Vector2Int currentPosition = new Vector2Int(Mathf.RoundToInt(transform.position.x), Mathf.RoundToInt(transform.position.y));
         route = this.calculateRoute(target, currentPosition);
+
+        //user clicked on his own position -> does not want to move this round
+        if(route == null)
+        {
+            route = new List<Vector2Int>();
+            this.gameLoop.IncrementTurnState();
+        }
     }
 
     //A* algorithm
     private List<Vector2Int> calculateRoute(Vector2Int start, Vector2Int target)
     {
+        //the user clicked on his own position
+        if(start.x == target.x && start.y == target.y)
+        {
+            return null;
+        }
+
         List<Tile> openList = new List<Tile>() { new Tile(start, Vector2Int.Distance(start, target), 0, null) };
         List<Vector2Int> closedList = new List<Vector2Int>();
         int i = 0;
@@ -153,6 +167,11 @@ public class PlayerMovement : MonoBehaviour
                     route.Add(currentPosition.position);
                 }
 
+                if(route.Count > WALKING_RANGE)
+                {
+                    return new List<Vector2Int>();
+                }
+
                 return route;
             }
 
@@ -187,7 +206,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
         //no route has been found (in time), return null
-        return null;
+        return new List<Vector2Int>();
     }
 
     private List<Vector2Int> findNeighbors(Vector2Int position, List<Vector2Int> closedList)

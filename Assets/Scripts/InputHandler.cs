@@ -6,13 +6,14 @@ using UnityEngine.EventSystems;
 public class InputHandler : MonoBehaviour
 {
     public PlayerMovement playerMovement;
-    public GameLoop gameLoop;
 
+    private GameLoop gameLoop;
     private Camera cam;
 
     // Start is called before the first frame update
     void Start()
     {
+        gameLoop = FindObjectOfType<GameLoop>();
         cam = Camera.main;
     }
 

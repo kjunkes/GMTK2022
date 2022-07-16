@@ -4912,6 +4912,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SPEED: 3
+  WALKING_RANGE: 4
   tilemap: {fileID: 565024134}
   gameLoop: {fileID: 16062114}
 --- !u!114 &1923192467
