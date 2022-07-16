@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.EventSystems;
 
-public class DiceVisual : MonoBehaviour
+public class DiceVisual : MonoBehaviour, IPointerClickHandler
 {
     public TextMeshProUGUI diceText;
     public PlayerDice playerDice;
@@ -67,4 +68,17 @@ public class DiceVisual : MonoBehaviour
             index++;
         }
     }
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        int finalNumber = currentNumbers[Random.Range(0, currentNumbers.Length)];
+        Debug.Log(Random.Range(0, currentNumbers.Length));
+        playerDice.dice[diceId].numbers = new int[] { finalNumber };
+        currentNumbers = new int[] { finalNumber };
+
+        diceText.text = finalNumber.ToString();
+
+        playerDice.EndRollingDice();
+    }
 }
+

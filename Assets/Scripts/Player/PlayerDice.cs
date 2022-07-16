@@ -19,6 +19,7 @@ public class PlayerDice : MonoBehaviour
     public GameLoop gameLoop;
     public GameObject dices;
     public GameObject diceSelectionWindow;
+    public PlayerEnergy playerEnergy;
 
     public class Dice
     {
@@ -99,6 +100,15 @@ public class PlayerDice : MonoBehaviour
     public void EndRollingDice()
     {
         diceSelectionWindow.SetActive(false);
+        Debug.Log("Increment");
+        gameLoop.IncrementTurnState();
+    }
+
+    public void EndRollingDice(float energy)
+    {
+        diceSelectionWindow.SetActive(false);
+        playerEnergy.InitialRoundEnergyUI(energy);
+        Debug.Log("Increment");
         gameLoop.IncrementTurnState();
     }
 }

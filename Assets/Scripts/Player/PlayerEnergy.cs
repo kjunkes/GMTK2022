@@ -22,4 +22,12 @@ public class PlayerEnergy : MonoBehaviour
     {
 
     }
+
+    public void InitialRoundEnergyUI(float roundEnergy)
+    {
+        energy = roundEnergy;
+        maxEnergy = roundEnergy;
+        energyBar.UpdateEnergyBar();
+        energyText.UpdateEnergyText();
+    }
 }
