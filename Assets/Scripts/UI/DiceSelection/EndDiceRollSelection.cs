@@ -24,6 +24,6 @@ public class EndDiceRollSelection : MonoBehaviour
 
     void EndRoll()
     {
-        playerDice.EndRollingDice();
+        playerDice.EndRollingDice(0);
     }
 }

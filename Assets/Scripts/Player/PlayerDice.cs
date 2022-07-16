@@ -97,18 +97,10 @@ public class PlayerDice : MonoBehaviour
         diceSelectionWindow.SetActive(true);
     }
 
-    public void EndRollingDice()
-    {
-        diceSelectionWindow.SetActive(false);
-        Debug.Log("Increment");
-        gameLoop.IncrementTurnState();
-    }
-
     public void EndRollingDice(float energy)
     {
         diceSelectionWindow.SetActive(false);
         playerEnergy.InitialRoundEnergyUI(energy);
-        Debug.Log("Increment");
         gameLoop.IncrementTurnState();
     }
 }
