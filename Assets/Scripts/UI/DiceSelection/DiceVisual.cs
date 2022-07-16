@@ -7,23 +7,28 @@ using TMPro;
 public class DiceVisual : MonoBehaviour
 {
     public TextMeshProUGUI diceText;
+    public PlayerDice playerDice;
     
-
-    public int diceLow;
-    public int diceHigh;
-    public int diceStepSizes;
+    public int diceId;
+    public float diceNumberWaitTime;
 
     // Next update in second
     private float nextUpdate = 0.1f;
-    private int currentDiceNumber;
-
+    private int index = 0;
+    private int[] currentNumbers;
+    
 
     // Start is called before the first frame update
     void Start()
     {
-        currentDiceNumber = diceLow;
     }
 
+    public void InitDice()
+    {
+        currentNumbers = playerDice.dice[diceId].numbers;
+        diceText.text = currentNumbers[index].ToString();
+        Debug.Log(currentNumbers[1].ToString());
+    }
     // Update is called once per frame
     void Update()
     {
@@ -31,7 +36,7 @@ public class DiceVisual : MonoBehaviour
         if (Time.time >= nextUpdate)
         {
             // Change the next update (current second + x)
-            nextUpdate = Time.time + 0.1f;
+            nextUpdate = Time.time + diceNumberWaitTime;
             // Call your fonction
             UpdateEverySecond();
         }
@@ -41,14 +46,16 @@ public class DiceVisual : MonoBehaviour
     // Update is called once per second
     void UpdateEverySecond()
     {
-        diceText.text = currentDiceNumber.ToString();
-
-        if (currentDiceNumber < diceHigh)
+        if(index >= currentNumbers.Length)
         {
-            currentDiceNumber += diceStepSizes;
-        } else
+            index = 0;
+            diceText.text = currentNumbers[index].ToString();
+            index++;
+        }
+        else
         {
-            currentDiceNumber = diceLow;
+            diceText.text = currentNumbers[index].ToString();
+            index++;
         }
     }
 }

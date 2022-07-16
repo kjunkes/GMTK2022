@@ -11,11 +11,14 @@ public class PlayerDice : MonoBehaviour
     public int lowDiceCount;
     public int doubleDiceCount;
     public GameLoop gameLoop;
+    public GameObject dices;
 
     public class Dice
     {
         public int[] numbers;
     }
+
+    public Dice[] dice;
 
     // Start is called before the first frame update
     void Start()
@@ -23,12 +26,13 @@ public class PlayerDice : MonoBehaviour
         int diceCount = normalDiceCount + highDiceCount
                         + lowDiceCount + doubleDiceCount;
         // Create Dice Array
-        Dice[] dice = new Dice[diceCount];
+        dice = new Dice[diceCount];
 
         // Create normal dice 1-6
         int[] normalDice = new int[] { 1, 2, 3, 4, 5, 6 };
         for (int i = 0; i < normalDiceCount; i++)
         {
+            dice[i] = new Dice();
             dice[i].numbers = normalDice;
         }
 
@@ -38,6 +42,7 @@ public class PlayerDice : MonoBehaviour
         int indexEnd = normalDiceCount + highDiceCount;
         for (int i = indexStart; i < indexEnd; i++)
         {
+            dice[i] = new Dice();
             dice[i].numbers = highDice;
         }
 
@@ -47,6 +52,7 @@ public class PlayerDice : MonoBehaviour
         indexEnd = indexStart + lowDiceCount;
         for (int i = indexStart; i < indexEnd; i++)
         {
+            dice[i] = new Dice();
             dice[i].numbers = lowDice;
         }
 
@@ -56,9 +62,15 @@ public class PlayerDice : MonoBehaviour
         indexEnd = indexStart + doubleDiceCount;
         for(int i = indexStart; i < indexEnd; i++)
         {
+            dice[i] = new Dice();
             dice[i].numbers = doubleDice;
         }
-        
+
+        foreach(Transform child in dices.transform)
+        {
+            DiceVisual dv = child.GetComponent(typeof(DiceVisual)) as DiceVisual;
+            dv.InitDice();
+        }
     }
 
     // Update is called once per frame
