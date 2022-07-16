@@ -19,7 +19,7 @@ public class InputHandler : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (this.gameLoop.CanWalk() && Input.GetMouseButtonUp(0) && !IsMouseOverUIElement())
+        if (Input.GetMouseButtonUp(0) && this.gameLoop.CanWalk() && !IsMouseOverUIElement())
         {
             Vector2 target = cam.ScreenToWorldPoint(Input.mousePosition);
             playerMovement.InitiateMove(new Vector2Int(Mathf.RoundToInt(target.x), Mathf.RoundToInt(target.y)));

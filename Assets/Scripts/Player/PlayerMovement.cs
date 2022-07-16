@@ -15,7 +15,7 @@ public class PlayerMovement : MonoBehaviour
     private const int ASTAR_CUTOFF = 1000;
 
     //insert names of passable Tiles
-    private List<String> passableTiles = new List<string>() {"green", "red"};
+    private List<String> passableTiles = new List<string>() {"green", "red", "64test"};
 
     private List<Vector2Int> route = new List<Vector2Int>();
 

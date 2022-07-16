@@ -17,6 +17,7 @@ public class GameLoop : MonoBehaviour
     }
 
     public GameObject enemies;
+    public PlayerDice playerDice;
 
     //List of all those enemies that are yet to act in the current turn
     private List<ActionToken> idleEnemies = new List<ActionToken>();
@@ -53,7 +54,7 @@ public class GameLoop : MonoBehaviour
                     case PlayerActionState.ACTION:
                         this.currentTurn = Turn.ENEMY;
 
-                        foreach (Transform child in transform)
+                        foreach (Transform child in enemies.transform)
                         {
                             this.idleEnemies.Add(child.GetComponent(typeof(ActionToken)) as ActionToken);
                         }
@@ -70,6 +71,8 @@ public class GameLoop : MonoBehaviour
             case Turn.ENEMY:
                 this.currentTurn = Turn.PLAYER;
                 this.playerActionState = PlayerActionState.DICE_SELECTION;
+
+                this.playerDice.StartRollingDice();
                 return;
             default:
                 break;
