@@ -23,6 +23,7 @@ public class GameLoop : MonoBehaviour
     public string nextLevel;
 
     private PlayerDice playerDice;
+    private PlayerHealth playerHealth;
     private EndTurnButton endTurnButton;
 
     //List of all those enemies that are yet to act in the current turn
@@ -37,6 +38,7 @@ public class GameLoop : MonoBehaviour
     {
         playerDice = FindObjectOfType<PlayerDice>();
         endTurnButton = FindObjectOfType<EndTurnButton>();
+        playerHealth = FindObjectOfType<PlayerHealth>();
     }
 
     // Update is called once per frame
@@ -100,6 +102,8 @@ public class GameLoop : MonoBehaviour
             this.idleEnemies.RemoveAt(0);
         }
 
+        CheckForPlayerDeath();
+
         //if enemies are yet to act, give them the token
         if(this.idleEnemies.Count > 0)
         {
@@ -109,6 +113,16 @@ public class GameLoop : MonoBehaviour
         {
             IncrementTurnState();
         }
+    }
+
+    public bool CheckForPlayerDeath()
+    {
+        if (playerHealth.GetHealth() <= 0)
+        {
+            return true;
+        }
+
+        return false;
     }
 
     public void EndLevel()
