@@ -42,7 +42,6 @@ public class PlayerDice : MonoBehaviour
             dice[i] = new Dice();
             dice[i].numbers = normalDice;
             dice[i].color = normalDiceColor;
-            Debug.Log(normalDiceColor.ToString());
         }
 
         // Create high dice 4-6
