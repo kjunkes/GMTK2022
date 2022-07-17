@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 using TMPro;
 
 public class GameLoop : MonoBehaviour
@@ -23,6 +24,7 @@ public class GameLoop : MonoBehaviour
     }
 
     public GameObject enemies;
+    public Button resetButton;
 
     public string nextLevel;
 
@@ -46,6 +48,8 @@ public class GameLoop : MonoBehaviour
         playerDice = FindObjectOfType<PlayerDice>();
         endTurnButton = FindObjectOfType<EndTurnButton>();
         playerHealth = FindObjectOfType<PlayerHealth>();
+
+        resetButton.onClick.AddListener(ReloadLevel);
     }
 
     // Update is called once per frame
@@ -136,10 +140,13 @@ public class GameLoop : MonoBehaviour
             this.idleEnemies.RemoveAt(0);
         }
 
-        CheckForPlayerDeath();
+        if (playerHealth.GetHealth() <= 0)
+        {
+            ReloadLevel();
+        }
 
         //if enemies are yet to act, give them the token
-        if(this.idleEnemies.Count > 0)
+        if (this.idleEnemies.Count > 0)
         {
             this.idleEnemies[0].StartAction();
         }
@@ -149,12 +156,9 @@ public class GameLoop : MonoBehaviour
         }
     }
 
-    public void CheckForPlayerDeath()
+    public void ReloadLevel()
     {
-        if (playerHealth.GetHealth() <= 0)
-        {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-        }
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     public void EndLevel()
