@@ -32,7 +32,7 @@ public class DiceVisual : MonoBehaviour, IPointerClickHandler
             gameObject.SetActive(true);
             currentNumbers = playerDice.dice[diceId].numbers;
             diceText.text = currentNumbers[index].ToString();
-            gameObject.GetComponent<Image>().color = playerDice.dice[diceId].color;
+            gameObject.GetComponent<Image>().sprite = playerDice.dice[diceId].image;
             UnityEngine.Random.InitState((int)DateTime.Now.Ticks * diceId);
             index = currentNumbers[UnityEngine.Random.Range(0, currentNumbers.Length)];
             // Calculates Random time to change dice number switching interval

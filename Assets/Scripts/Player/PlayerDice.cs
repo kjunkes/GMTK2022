@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 
 
@@ -11,10 +12,10 @@ public class PlayerDice : MonoBehaviour
     public int lowDiceCount;
     public int doubleDiceCount;
 
-    public Color normalDiceColor;
-    public Color highDiceColor;
-    public Color lowDiceColor;
-    public Color doubleDiceColor;
+    public Sprite normalDiceImage;
+    public Sprite highDiceImage;
+    public Sprite lowDiceImage;
+    public Sprite doubleDiceImage;
 
     public GameLoop gameLoop;
     public GameObject dices;
@@ -24,7 +25,7 @@ public class PlayerDice : MonoBehaviour
     public class Dice
     {
         public int[] numbers;
-        public Color color;
+        public Sprite image;
     }
 
     public Dice[] dice;
@@ -43,7 +44,7 @@ public class PlayerDice : MonoBehaviour
         {
             dice[i] = new Dice();
             dice[i].numbers = normalDice;
-            dice[i].color = normalDiceColor;
+            dice[i].image = normalDiceImage;
         }
 
         // Create high dice 4-6
@@ -54,7 +55,7 @@ public class PlayerDice : MonoBehaviour
         {
             dice[i] = new Dice();
             dice[i].numbers = highDice;
-            dice[i].color = highDiceColor;
+            dice[i].image = highDiceImage;
         }
 
         // Create low dice 1-3
@@ -65,7 +66,7 @@ public class PlayerDice : MonoBehaviour
         {
             dice[i] = new Dice();
             dice[i].numbers = lowDice;
-            dice[i].color = lowDiceColor;
+            dice[i].image = lowDiceImage;
         }
 
         // Create double dice 2-12
@@ -76,7 +77,7 @@ public class PlayerDice : MonoBehaviour
         {
             dice[i] = new Dice();
             dice[i].numbers = doubleDice;
-            dice[i].color = doubleDiceColor;
+            dice[i].image = doubleDiceImage;
         }
 
         foreach(Transform child in dices.transform)
