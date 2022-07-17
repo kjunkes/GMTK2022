@@ -168,6 +168,7 @@ public class AbilityManager : MonoBehaviour
 
     private void UseSelfBuff()
     {
+        Debug.Log("selfbuff");
         BuffAbility selfBuff = (BuffAbility)playerEnergy.GetAbilityOfType(AbilityType.SELF_BUFF);
         attackMultiplier = selfBuff.factor;
     }
