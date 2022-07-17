@@ -111,8 +111,9 @@ public class AbilityManager : MonoBehaviour
         abilityActive = true;
 
         BuffAbility buffAbility = ability as BuffAbility;
+        AOEAbility aoeAbility = ability as AOEAbility;
 
-        if (buffAbility != null)
+        if (buffAbility != null || aoeAbility != null)
         {
             UseAbility();
         }
@@ -158,7 +159,14 @@ public class AbilityManager : MonoBehaviour
 
     private void UseRoundhouseKick()
     {
+        AOEAbility aoeAbility = (AOEAbility)playerEnergy.GetAbilityOfType(AbilityType.ROUNDHOUSE_KICK);
+        aoeAbility.Use(attackMultiplier);
+        this.playerEnergy.energy -= aoeAbility.GetManacost();
 
+        if (this.playerEnergy.energy <= 0)
+        {
+            EndAbilityPhase();
+        }
     }
 
     private void UseStoneThrow()

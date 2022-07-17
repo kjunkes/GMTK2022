@@ -6887,6 +6887,7 @@ GameObject:
   - component: {fileID: 1923192471}
   - component: {fileID: 1923192470}
   - component: {fileID: 1923192472}
+  - component: {fileID: 1923192473}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -7011,7 +7012,7 @@ MonoBehaviour:
   energyText: {fileID: 925109140}
   attackRangeIndicator: {fileID: 1535555937}
   punch: {fileID: 1923192469}
-  roundhouseKick: {fileID: 0}
+  roundhouseKick: {fileID: 1923192473}
   stoneThrow: {fileID: 1923192471}
   shot: {fileID: 1923192470}
   selfBuff: {fileID: 1923192472}
@@ -7032,10 +7033,10 @@ MonoBehaviour:
   highDiceCount: 2
   lowDiceCount: 2
   doubleDiceCount: 4
-  normalDiceColor: {r: 1, g: 1, b: 1, a: 1}
-  highDiceColor: {r: 0.8301887, g: 0.37648425, b: 0.13705944, a: 1}
-  lowDiceColor: {r: 0.17986828, g: 0.4398022, b: 0.8113208, a: 1}
-  doubleDiceColor: {r: 0.9245283, g: 0.07413671, b: 0.07413671, a: 1}
+  normalDiceImage: {fileID: 0}
+  highDiceImage: {fileID: 0}
+  lowDiceImage: {fileID: 0}
+  doubleDiceImage: {fileID: 0}
   gameLoop: {fileID: 16062114}
   dices: {fileID: 1080827785}
   diceSelectionWindow: {fileID: 1026485494}
@@ -7103,6 +7104,22 @@ MonoBehaviour:
   abilityName: SelfBuff
   manacost: 3
   factor: 2
+--- !u!114 &1923192473
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1923192462}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8513ae1ee8c1144fb6cfe9b46ff6f0f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  abilityName: RoundhouseKick
+  manacost: 5
+  range: 1
+  damage: 5
 --- !u!1 &1956733398
 GameObject:
   m_ObjectHideFlags: 0
