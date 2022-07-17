@@ -28,7 +28,8 @@ public class PlayerEnergy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        energyBar.UpdateEnergyBar();
+        energyText.UpdateEnergyText();
     }
 
     public void InitialRoundEnergyUI(float roundEnergy)
