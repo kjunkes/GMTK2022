@@ -14637,6 +14637,7 @@ MonoBehaviour:
   SPEED: 3
   WALKING_RANGE: 4
   tilemap: {fileID: 2079676271}
+  walkingRangeIndicator: {fileID: 1907647347}
 --- !u!114 &1923192467
 MonoBehaviour:
   m_ObjectHideFlags: 0
