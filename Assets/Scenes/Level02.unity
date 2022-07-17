@@ -154,7 +154,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemies: {fileID: 911925746}
   resetButton: {fileID: 428521352}
-  nextLevel: SampleScene
+  nextLevel: Level03
 --- !u!4 &16062115
 Transform:
   m_ObjectHideFlags: 0
