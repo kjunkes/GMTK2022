@@ -13,12 +13,12 @@ public class AbilityManager : MonoBehaviour
         STONE_THROW,
         SHOT,
         SELF_BUFF,
-        ENEMY_DEFENSE_NERF
+        ENEMY_DEFENSE_NERF,
+        NONE
     }
 
     private GameLoop gameLoop;
     private PlayerEnergy playerEnergy;
-    private PlayerHealth playerHealth;
 
     private AbilityType currentAbility;
     private bool abilityActive = false;
@@ -35,7 +35,6 @@ public class AbilityManager : MonoBehaviour
     void Start()
     {
         playerEnergy = FindObjectOfType<PlayerEnergy>();
-        playerHealth = FindObjectOfType<PlayerHealth>();
         gameLoop = FindObjectOfType<GameLoop>();
 
         punchButton.onClick.AddListener(() => {
@@ -61,7 +60,10 @@ public class AbilityManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        if(this.gameLoop.CanUseAbility() && currentAbility == AbilityType.NONE)
+        {
+            playerEnergy.attackRangeIndicator.gameObject.SetActive(false);
+        }
     }
 
     public void StartAbilitySelection()
@@ -81,12 +83,18 @@ public class AbilityManager : MonoBehaviour
 
         attackMultiplier = 1f;
         playerEnergy.attackRangeIndicator.gameObject.SetActive(false);
+        currentAbility = AbilityType.NONE;
         gameLoop.IncrementTurnState();
     }
 
     //this is called by the buttons
     private void SetAbility(AbilityType type)
     {
+        if(type == AbilityType.NONE)
+        {
+            return;
+        }
+
         Ability ability = this.playerEnergy.GetAbilityOfType(type);
 
         if (this.playerEnergy.energy < ability.GetManacost())
@@ -165,6 +173,11 @@ public class AbilityManager : MonoBehaviour
         aoeAbility.Use(attackMultiplier);
         this.playerEnergy.energy -= aoeAbility.GetManacost();
 
+        if(this.playerEnergy.energy < aoeAbility.GetManacost())
+        {
+            currentAbility = AbilityType.NONE;
+        }
+
         if (this.playerEnergy.energy <= 0)
         {
             EndAbilityPhase();
@@ -189,6 +202,11 @@ public class AbilityManager : MonoBehaviour
         attackMultiplier = selfBuff.factor;
         this.playerEnergy.energy -= selfBuff.GetManacost();
 
+        if (this.playerEnergy.energy < selfBuff.GetManacost())
+        {
+            currentAbility = AbilityType.NONE;
+        }
+
         if (this.playerEnergy.energy <= 0)
         {
             EndAbilityPhase();
@@ -211,6 +229,11 @@ public class AbilityManager : MonoBehaviour
             {
                 this.playerEnergy.energy -= ability.GetManacost();
 
+                if (this.playerEnergy.energy < ability.GetManacost())
+                {
+                    currentAbility = AbilityType.NONE;
+                }
+
                 if (this.playerEnergy.energy <= 0)
                 {
                     EndAbilityPhase();
@@ -228,6 +251,11 @@ public class AbilityManager : MonoBehaviour
             if (ability.Use(enemy, ability.defenseNerf))
             {
                 this.playerEnergy.energy -= ability.GetManacost();
+
+                if (this.playerEnergy.energy < ability.GetManacost())
+                {
+                    currentAbility = AbilityType.NONE;
+                }
 
                 if (this.playerEnergy.energy <= 0)
                 {

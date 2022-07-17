@@ -7,7 +7,7 @@ public class EnemyHealth : Health
     private EnemyMovement enemyMovement;
     private Transform healthbar;
     private Vector3 relativePosition;
-    private float defenseNerf;
+    private float defenseNerf = 1f;
 
     // Start is called before the first frame update
     void Start()
