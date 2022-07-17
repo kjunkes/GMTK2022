@@ -11,6 +11,7 @@ public class PlayerMovement : MonoBehaviour
     public int WALKING_RANGE = 4;
 
     public Tilemap tilemap;
+    public SpriteRenderer walkingRangeIndicator;
 
     private GameLoop gameLoop;
     private AStar astar;
@@ -30,6 +31,15 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (!this.gameLoop.CanWalk() || this.route.Count > 0)
+        {
+            this.walkingRangeIndicator.gameObject.SetActive(false);
+        }
+        else
+        {
+            this.walkingRangeIndicator.gameObject.SetActive(true);
+        }
+
         //there is still a path to be walked
         if (this.route.Count > 0)
         {
