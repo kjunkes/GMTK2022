@@ -5249,7 +5249,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b3f4426dd15fdb438644878757d2fcf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 25
+  health: 50
   maxHealth: 50
 --- !u!114 &1115826597
 MonoBehaviour:
@@ -13035,7 +13035,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b3f4426dd15fdb438644878757d2fcf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 25
+  health: 50
   maxHealth: 50
 --- !u!114 &1622670374
 MonoBehaviour:
@@ -14100,7 +14100,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b3f4426dd15fdb438644878757d2fcf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 25
+  health: 50
   maxHealth: 50
 --- !u!114 &1799145473
 MonoBehaviour:
@@ -14445,6 +14445,7 @@ GameObject:
   - component: {fileID: 1923192471}
   - component: {fileID: 1923192474}
   - component: {fileID: 1923192475}
+  - component: {fileID: 1923192476}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -14573,7 +14574,7 @@ MonoBehaviour:
   stoneThrow: {fileID: 1923192472}
   shot: {fileID: 1923192471}
   selfBuff: {fileID: 1923192474}
-  enemyDefenseNerf: {fileID: 0}
+  enemyDefenseNerf: {fileID: 1923192476}
 --- !u!114 &1923192468
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14709,6 +14710,22 @@ MonoBehaviour:
   manacost: 5
   range: 1
   damage: 7
+--- !u!114 &1923192476
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1923192462}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 548665cae6fbee24fa29d37bb308ddb2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  abilityName: DefenseNerf
+  manacost: 1
+  range: 3
+  defenseNerf: 1.5
 --- !u!1 &1932294660
 GameObject:
   m_ObjectHideFlags: 0
@@ -14866,7 +14883,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b3f4426dd15fdb438644878757d2fcf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 25
+  health: 50
   maxHealth: 50
 --- !u!114 &1932294669
 MonoBehaviour:
