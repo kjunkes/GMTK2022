@@ -40,6 +40,7 @@ public class PlayerMovement : MonoBehaviour
                 
                 if(route.Count == 0)
                 {
+                    Debug.Log("Walking complete");
                     CheckLevelComplete();
                     this.gameLoop.IncrementTurnState();
                 }
@@ -58,6 +59,7 @@ public class PlayerMovement : MonoBehaviour
 
         Vector2 transformDelta = route[0] - (Vector2)transform.position;
         Vector2 resultDelta = route[0] - (Vector2)result;
+
         transformDelta.Normalize();
         resultDelta.Normalize();
         float xProduct = transformDelta.x * resultDelta.x;
