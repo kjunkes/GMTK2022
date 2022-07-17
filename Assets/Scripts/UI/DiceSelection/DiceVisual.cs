@@ -1,9 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.EventSystems;
+using System;
 
 public class DiceVisual : MonoBehaviour, IPointerClickHandler
 {
@@ -16,7 +15,7 @@ public class DiceVisual : MonoBehaviour, IPointerClickHandler
 
     // Next update in second
     private float nextUpdate = 0.1f;
-    private int index = 0;
+    private int index;
     private int[] currentNumbers;
     
 
@@ -33,6 +32,8 @@ public class DiceVisual : MonoBehaviour, IPointerClickHandler
             currentNumbers = playerDice.dice[diceId].numbers;
             diceText.text = currentNumbers[index].ToString();
             gameObject.GetComponent<Image>().color = playerDice.dice[diceId].color;
+            UnityEngine.Random.InitState((int)DateTime.Now.Ticks + diceId);
+            index = currentNumbers[UnityEngine.Random.Range(0, currentNumbers.Length)];
         } else
         {
             gameObject.SetActive(false);
@@ -74,7 +75,7 @@ public class DiceVisual : MonoBehaviour, IPointerClickHandler
     {
         if(currentNumbers.Length != 1)
         {
-            int finalNumber = currentNumbers[Random.Range(0, currentNumbers.Length)];
+            int finalNumber = currentNumbers[UnityEngine.Random.Range(0, currentNumbers.Length)];
             playerDice.dice[diceId].numbers = new int[] { finalNumber };
             currentNumbers = new int[] { finalNumber };
 
@@ -82,7 +83,6 @@ public class DiceVisual : MonoBehaviour, IPointerClickHandler
 
             // Change alpha channel of object
             Color gameObjectColor = gameObject.GetComponent<Image>().color;
-            Debug.Log(selectedDiceTransparency);
             gameObjectColor.a = selectedDiceTransparency;
             gameObject.GetComponent<Image>().color = gameObjectColor;
 
