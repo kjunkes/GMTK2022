@@ -7,6 +7,7 @@ public class EnemyHealth : Health
     private EnemyMovement enemyMovement;
     private Transform healthbar;
     private Vector3 relativePosition;
+    private float defenseNerf;
 
     // Start is called before the first frame update
     void Start()
@@ -40,5 +41,15 @@ public class EnemyHealth : Health
     public override void Buff(float value)
     {
         
+    }
+
+    public float GetDefenseNerf()
+    {
+        return this.defenseNerf;
+    }
+
+    public void SetDefenseNerf(float value)
+    {
+        this.defenseNerf = value;
     }
 }

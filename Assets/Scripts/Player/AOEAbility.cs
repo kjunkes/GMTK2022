@@ -29,7 +29,7 @@ public class AOEAbility : Ability
 
             if(distance <= range)
             {
-                enemy.SetHealth(enemy.GetHealth() - damage * attackMultiplier);
+                enemy.SetHealth(enemy.GetHealth() - damage * attackMultiplier * enemy.GetDefenseNerf());
             }
         }
     }

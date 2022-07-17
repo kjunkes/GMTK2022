@@ -95,11 +95,13 @@ public class AbilityManager : MonoBehaviour
         }
 
         DamagingAbility damagingAbility = ability as DamagingAbility;
+        DefenseNerfAbility defenseNerfAbility = ability as DefenseNerfAbility;
 
-        if (damagingAbility != null)
+        if (damagingAbility != null || defenseNerfAbility != null)
         {
+            float range = damagingAbility ? damagingAbility.range : defenseNerfAbility.range;
             playerEnergy.attackRangeIndicator.gameObject.SetActive(true);
-            playerEnergy.attackRangeIndicator.transform.localScale = new Vector3(damagingAbility.range * 2, damagingAbility.range * 2, 1);
+            playerEnergy.attackRangeIndicator.transform.localScale = new Vector3(range * 2, range * 2, 1);
         }
         else
         {
@@ -195,20 +197,39 @@ public class AbilityManager : MonoBehaviour
 
     private void UseEnemyDefenseNerf()
     {
-
+        DefenseNerfAbility defenseNerf = (DefenseNerfAbility)playerEnergy.GetAbilityOfType(AbilityType.ENEMY_DEFENSE_NERF);
+        UseDefenseNerfAbility(defenseNerf);
     }
 
     private void UseDamagingAbility(DamagingAbility ability)
     {
         EnemyHealth enemy = IsMouseOverEnemy();
 
-        if(enemy != null)
+        if (enemy != null)
         {
-            if (ability.Use(enemy, attackMultiplier))
+            if (ability.Use(enemy, attackMultiplier * enemy.GetDefenseNerf()))
             {
                 this.playerEnergy.energy -= ability.GetManacost();
 
-                if(this.playerEnergy.energy <= 0)
+                if (this.playerEnergy.energy <= 0)
+                {
+                    EndAbilityPhase();
+                }
+            }
+        }
+    }
+
+    private void UseDefenseNerfAbility(DefenseNerfAbility ability)
+    {
+        EnemyHealth enemy = IsMouseOverEnemy();
+
+        if (enemy != null)
+        {
+            if (ability.Use(enemy, ability.defenseNerf))
+            {
+                this.playerEnergy.energy -= ability.GetManacost();
+
+                if (this.playerEnergy.energy <= 0)
                 {
                     EndAbilityPhase();
                 }
