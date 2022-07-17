@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class EnemyHealth : Health
 {
-    private ActionToken actionToken;
+    private EnemyMovement enemyMovement;
     private Transform healthbar;
     private Vector3 relativePosition;
 
     // Start is called before the first frame update
     void Start()
     {
-        actionToken = this.GetComponent<ActionToken>();
+        enemyMovement = this.GetComponent<EnemyMovement>();
         healthbar = transform.Find("EnemyHealthBar");
         relativePosition = healthbar.transform.position - transform.position;
     }
@@ -26,12 +26,13 @@ public class EnemyHealth : Health
         healthbar.transform.position = transform.position + relativePosition + new Vector3(-horizontalOffset, 0, 0);
     }
 
-    public new void SetHealth(float value)
+    public override void SetHealth(float value)
     {
         health = Mathf.Max(value, 0);
-        
-        if(health <= 0)
+
+        if (health <= 0)
         {
+            enemyMovement.RestoreTilemap();
             gameObject.SetActive(false);
         }
     }

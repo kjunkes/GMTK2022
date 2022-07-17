@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Ability : MonoBehaviour
 {
+    public string abilityName;
     public int manacost = 1;
 
     // Start is called before the first frame update

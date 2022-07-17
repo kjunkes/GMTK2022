@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Health : MonoBehaviour
+public abstract class Health : MonoBehaviour
 {
     public float health;
     public float maxHealth;
@@ -24,8 +24,5 @@ public class Health : MonoBehaviour
         return this.health;
     }
 
-    public void SetHealth(float value)
-    {
-        this.health = Mathf.Max(value, 0);
-    }
+    public abstract void SetHealth(float value);
 }

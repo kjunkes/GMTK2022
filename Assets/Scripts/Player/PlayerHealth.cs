@@ -20,4 +20,9 @@ public class PlayerHealth : Health
         healthBar.UpdateHealthBar();
         healthText.UpdateHealthText();
     }
+
+    public override void SetHealth(float value)
+    {
+        this.health = value;
+    }
 }
