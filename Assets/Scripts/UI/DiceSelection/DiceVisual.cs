@@ -17,6 +17,7 @@ public class DiceVisual : MonoBehaviour, IPointerClickHandler
     private float nextUpdate = 0.1f;
     private int index;
     private int[] currentNumbers;
+    private float randomTimeDiff;
     
 
     // Start is called before the first frame update
@@ -32,8 +33,10 @@ public class DiceVisual : MonoBehaviour, IPointerClickHandler
             currentNumbers = playerDice.dice[diceId].numbers;
             diceText.text = currentNumbers[index].ToString();
             gameObject.GetComponent<Image>().color = playerDice.dice[diceId].color;
-            UnityEngine.Random.InitState((int)DateTime.Now.Ticks + diceId);
+            UnityEngine.Random.InitState((int)DateTime.Now.Ticks * diceId);
             index = currentNumbers[UnityEngine.Random.Range(0, currentNumbers.Length)];
+            // Calculates Random time to change dice number switching interval
+            randomTimeDiff = UnityEngine.Random.Range(-0.1f, 0.1f);
         } else
         {
             gameObject.SetActive(false);
@@ -48,7 +51,7 @@ public class DiceVisual : MonoBehaviour, IPointerClickHandler
         if (Time.time >= nextUpdate)
         {
             // Change the next update (current second + x)
-            nextUpdate = Time.time + diceNumberWaitTime;
+            nextUpdate = Time.time + diceNumberWaitTime + randomTimeDiff;
             // Call your fonction
             UpdateEverySecond();
         }
