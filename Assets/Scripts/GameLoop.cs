@@ -30,6 +30,8 @@ public class GameLoop : MonoBehaviour
 
     private PlayerDice playerDice;
     private PlayerHealth playerHealth;
+    private PlayerEnergy playerEnergy;
+    private AbilityManager abilityManager;
     private EndTurnButton endTurnButton;
 
     //List of all those enemies that are yet to act in the current turn
@@ -48,6 +50,8 @@ public class GameLoop : MonoBehaviour
         playerDice = FindObjectOfType<PlayerDice>();
         endTurnButton = FindObjectOfType<EndTurnButton>();
         playerHealth = FindObjectOfType<PlayerHealth>();
+        playerEnergy = FindObjectOfType<PlayerEnergy>();
+        abilityManager = FindObjectOfType<AbilityManager>();
 
         resetButton.onClick.AddListener(ReloadLevel);
     }
@@ -90,7 +94,24 @@ public class GameLoop : MonoBehaviour
                         this.endTurnButton.enabled = true;
                         return;
                     case PlayerActionState.WALKING:
-                        this.playerActionState = PlayerActionState.ACTION;
+                        if (playerEnergy.energy == 0)
+                        {
+                            this.currentTurn = Turn.ENEMY;
+
+                            UpdateIdleEnemies();
+
+                            if (this.idleEnemies.Count > 0)
+                            {
+                                this.idleEnemies[0].StartAction();
+                            }
+                        }
+                        else
+                        {
+                            this.playerActionState = PlayerActionState.ACTION;
+
+                            abilityManager.StartAbilitySelection();
+                        }
+
                         return;
                     case PlayerActionState.ACTION:
                         this.currentTurn = Turn.ENEMY;
@@ -159,6 +180,11 @@ public class GameLoop : MonoBehaviour
     public bool CanWalk()
     {
         return this.currentTurn == Turn.PLAYER && this.playerActionState == PlayerActionState.WALKING;
+    }
+
+    public bool CanUseAbility()
+    {
+        return this.currentTurn == Turn.PLAYER && this.playerActionState == PlayerActionState.ACTION;
     }
 
     public void PassOnToken()

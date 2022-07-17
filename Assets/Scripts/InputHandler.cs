@@ -7,6 +7,7 @@ public class InputHandler : MonoBehaviour
 {
     private PlayerMovement playerMovement;
     private GameLoop gameLoop;
+    private AbilityManager abilityManager;
     private Camera cam;
 
     // Start is called before the first frame update
@@ -14,6 +15,7 @@ public class InputHandler : MonoBehaviour
     {
         playerMovement = FindObjectOfType<PlayerMovement>();
         gameLoop = FindObjectOfType<GameLoop>();
+        abilityManager = FindObjectOfType<AbilityManager>();
         cam = Camera.main;
     }
 
@@ -24,6 +26,10 @@ public class InputHandler : MonoBehaviour
         {
             Vector2 target = cam.ScreenToWorldPoint(Input.mousePosition);
             playerMovement.InitiateMove(new Vector2Int(Mathf.RoundToInt(target.x), Mathf.RoundToInt(target.y)));
+        }
+        else if(Input.GetMouseButtonDown(0) && this.gameLoop.CanUseAbility() && !IsMouseOverUIElement())
+        {
+            abilityManager.UseAbility();
         }
     }
 

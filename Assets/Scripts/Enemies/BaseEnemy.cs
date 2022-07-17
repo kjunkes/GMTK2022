@@ -75,6 +75,7 @@ public class BaseEnemy : MonoBehaviour
                 else
                 {
                     //Non damaging ability usage
+                    this.actionToken.EndAction();
                 }
             }
         }

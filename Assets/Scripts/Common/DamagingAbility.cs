@@ -19,13 +19,16 @@ public class DamagingAbility : Ability
         
     }
 
-    public void Use(Health target)
+    public bool Use(Health target)
     {
         float distance = Vector3.Distance(transform.position, target.transform.position);
 
         if(distance <= range)
         {
             target.SetHealth(target.GetHealth() - damage);
+            return true;
         }
+
+        return false;
     }
 }

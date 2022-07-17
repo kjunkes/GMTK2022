@@ -82,9 +82,7 @@ public class EnemyMovement : MonoBehaviour
             return;
         }
 
-        //restore the tilemap at start position
-        tilemap.SetTile(new Vector3Int(Mathf.RoundToInt(transform.position.x), Mathf.RoundToInt(transform.position.y), 0), walkable);
-
+        RestoreTilemap();
         Vector2Int currentPosition = new Vector2Int(Mathf.RoundToInt(transform.position.x), Mathf.RoundToInt(transform.position.y));
         route = this.astar.CalculateRoute(currentPosition, target, 10000);
 
@@ -101,6 +99,11 @@ public class EnemyMovement : MonoBehaviour
                 route.RemoveAt(route.Count - 1);
             }
         }
+    }
+
+    public void RestoreTilemap()
+    {
+        tilemap.SetTile(new Vector3Int(Mathf.RoundToInt(transform.position.x), Mathf.RoundToInt(transform.position.y), 0), walkable);
     }
 
     public List<Vector2Int> GetRoute()
