@@ -25,4 +25,6 @@ public abstract class Health : MonoBehaviour
     }
 
     public abstract void SetHealth(float value);
+
+    public abstract void Buff(float value);
 }

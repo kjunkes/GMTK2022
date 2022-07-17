@@ -6880,12 +6880,13 @@ GameObject:
   - component: {fileID: 1923192464}
   - component: {fileID: 1923192463}
   - component: {fileID: 1923192465}
-  - component: {fileID: 1923192467}
   - component: {fileID: 1923192466}
   - component: {fileID: 1923192468}
+  - component: {fileID: 1923192467}
   - component: {fileID: 1923192469}
   - component: {fileID: 1923192471}
   - component: {fileID: 1923192470}
+  - component: {fileID: 1923192472}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -7013,7 +7014,7 @@ MonoBehaviour:
   roundhouseKick: {fileID: 0}
   stoneThrow: {fileID: 1923192471}
   shot: {fileID: 1923192470}
-  selfBuff: {fileID: 0}
+  selfBuff: {fileID: 1923192472}
   enemyDefenseNerf: {fileID: 0}
 --- !u!114 &1923192468
 MonoBehaviour:
@@ -7087,6 +7088,21 @@ MonoBehaviour:
   manacost: 1
   damage: 3
   range: 3
+--- !u!114 &1923192472
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1923192462}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b6ed818f0f97bf24b9d2dff5582de850, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  abilityName: SelfBuff
+  manacost: 3
+  factor: 2
 --- !u!1 &1956733398
 GameObject:
   m_ObjectHideFlags: 0

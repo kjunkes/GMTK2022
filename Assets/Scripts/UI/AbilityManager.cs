@@ -18,8 +18,11 @@ public class AbilityManager : MonoBehaviour
 
     private GameLoop gameLoop;
     private PlayerEnergy playerEnergy;
+    private PlayerHealth playerHealth;
+
     private AbilityType currentAbility;
     private bool abilityActive = false;
+    private float attackMultiplier = 1f;
 
     public Button punchButton;
     public Button roundhouseKickButton;
@@ -32,6 +35,7 @@ public class AbilityManager : MonoBehaviour
     void Start()
     {
         playerEnergy = FindObjectOfType<PlayerEnergy>();
+        playerHealth = FindObjectOfType<PlayerHealth>();
         gameLoop = FindObjectOfType<GameLoop>();
 
         punchButton.onClick.AddListener(() => {
@@ -75,6 +79,7 @@ public class AbilityManager : MonoBehaviour
             child.gameObject.SetActive(false);
         }
 
+        attackMultiplier = 1f;
         playerEnergy.attackRangeIndicator.gameObject.SetActive(false);
         gameLoop.IncrementTurnState();
     }
@@ -163,7 +168,8 @@ public class AbilityManager : MonoBehaviour
 
     private void UseSelfBuff()
     {
-
+        BuffAbility selfBuff = (BuffAbility)playerEnergy.GetAbilityOfType(AbilityType.SELF_BUFF);
+        attackMultiplier = selfBuff.factor;
     }
 
     private void UseEnemyDefenseNerf()
@@ -177,9 +183,14 @@ public class AbilityManager : MonoBehaviour
 
         if(enemy != null)
         {
-            if (ability.Use(enemy))
+            if (ability.Use(enemy, attackMultiplier))
             {
-                EndAbilityPhase();
+                this.playerEnergy.energy -= ability.GetManacost();
+
+                if(this.playerEnergy.energy <= 0)
+                {
+                    EndAbilityPhase();
+                }
             }
         }
     }
@@ -201,5 +212,15 @@ public class AbilityManager : MonoBehaviour
         }
 
         return null;
+    }
+
+    public float GetAttackMultiplier()
+    {
+        return this.attackMultiplier;
+    }
+
+    public void SetAttackMultiplier(float value)
+    {
+        this.attackMultiplier = value;
     }
 }

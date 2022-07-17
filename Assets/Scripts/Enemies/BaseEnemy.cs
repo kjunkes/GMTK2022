@@ -68,7 +68,7 @@ public class BaseEnemy : MonoBehaviour
                     else
                     {
                         //if damaging ability has been chosen and player is in range, use the ability
-                        ((DamagingAbility)abilityThisTurn).Use(playerHealth);
+                        ((DamagingAbility)abilityThisTurn).Use(playerHealth, 1f);
                         this.actionToken.EndAction();
                     }
                 }

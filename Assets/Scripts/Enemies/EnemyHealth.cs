@@ -36,4 +36,9 @@ public class EnemyHealth : Health
             gameObject.SetActive(false);
         }
     }
+
+    public override void Buff(float value)
+    {
+        
+    }
 }
