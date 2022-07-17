@@ -6,7 +6,7 @@ using UnityEngine.Tilemaps;
 
 public class AStar : MonoBehaviour
 {
-    private const int ASTAR_CUTOFF = 1000;
+    private const int ASTAR_CUTOFF = 100;
 
     private List<string> passableTiles = new List<string>() { "green", "red", "64test" };
 
@@ -127,6 +127,8 @@ public class AStar : MonoBehaviour
                     openList.Add(new Tile(neighbor, currentPosition.distance + 1 + Vector2.Distance(neighbor, start), currentPosition.distance + 1, currentPosition));
                 }
             }
+
+            i++;
         }
 
         //no route has been found (in time), return null
