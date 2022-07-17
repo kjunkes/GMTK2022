@@ -16,7 +16,6 @@ public class PlayerAnimation : MonoBehaviour
     {
         animator = this.GetComponent<Animator>();
         lastPosition = gameObject.transform.position;
-        Debug.Log(lastPosition);
     }
 
     // Update is called once per frame
@@ -24,7 +23,6 @@ public class PlayerAnimation : MonoBehaviour
     {
         currentPosition = gameObject.transform.position;
         positionDiff = (currentPosition - lastPosition).normalized;
-        Debug.Log(positionDiff);
         lastPosition = currentPosition;
 
         if(positionDiff.x == 1f)
@@ -49,6 +47,5 @@ public class PlayerAnimation : MonoBehaviour
         }
 
         animator.SetInteger("Walk", walk);
-        Debug.Log(walk);
     }
 }
