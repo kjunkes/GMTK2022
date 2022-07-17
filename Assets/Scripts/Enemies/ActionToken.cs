@@ -54,10 +54,13 @@ public class ActionToken : MonoBehaviour
 
     public void EndAction()
     {
-        this.hasActedThisTurn = true;
-        this.hasMovedThisTurn = true;
-        this.hasActionToken = false;
-        this.gameLoop.PassOnToken();
+        if (hasActionToken)
+        {
+            this.hasActedThisTurn = true;
+            this.hasMovedThisTurn = true;
+            this.hasActionToken = false;
+            this.gameLoop.PassOnToken();
+        }
     }
 
     public void Reset()

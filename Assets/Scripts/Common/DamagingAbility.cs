@@ -21,9 +21,9 @@ public class DamagingAbility : Ability
 
     public void Use(Health target)
     {
-        float distanceRounded = Mathf.RoundToInt(Vector3.Distance(transform.position, target.transform.position));
+        float distanceRounded = Vector3.Distance(transform.position, target.transform.position);
 
-        if(distanceRounded < range)
+        if(distanceRounded <= range)
         {
             target.SetHealth(target.GetHealth() - damage);
         }

@@ -58,20 +58,23 @@ public class GameLoop : MonoBehaviour
         if(currentTurn == Turn.ENEMY)
         {
             turnText.text = "ENEMY";
+            playerActionStateText.text = "";
         } else
         {
             turnText.text = "PLAYER";
-        }
 
-        if(playerActionState == PlayerActionState.DICE_SELECTION)
-        {
-            playerActionStateText.text = "DICE_SELECTION";
-        } else if(playerActionState == PlayerActionState.WALKING)
-        {
-            playerActionStateText.text = "WALKING";
-        } else
-        {
-            playerActionStateText.text = "ACTION";
+            if (playerActionState == PlayerActionState.DICE_SELECTION)
+            {
+                playerActionStateText.text = "DICE_SELECTION";
+            }
+            else if (playerActionState == PlayerActionState.WALKING)
+            {
+                playerActionStateText.text = "WALKING";
+            }
+            else
+            {
+                playerActionStateText.text = "ACTION";
+            }
         }
     }
 
@@ -92,19 +95,7 @@ public class GameLoop : MonoBehaviour
                     case PlayerActionState.ACTION:
                         this.currentTurn = Turn.ENEMY;
 
-                        this.idleEnemies.Clear();
-
-                        foreach (Transform child in enemies.transform)
-                        {
-                            ActionToken actionToken = child.GetComponent(typeof(ActionToken)) as ActionToken;
-                            actionToken.Reset();
-                            this.idleEnemies.Add(actionToken);
-                        }
-
-                        this.idleEnemies = this.idleEnemies.Where(enemy =>
-                        {
-                            return enemy.isActiveAndEnabled;
-                        }).ToList();
+                        UpdateIdleEnemies();
 
                         if (this.idleEnemies.Count > 0)
                         {
@@ -125,6 +116,44 @@ public class GameLoop : MonoBehaviour
             default:
                 break;
         }
+    }
+
+    public void UpdateIdleEnemies()
+    {
+        this.idleEnemies.Clear();
+
+        foreach (ActionToken actionToken in enemies.GetComponentsInChildren<ActionToken>())
+        {
+            actionToken.Reset();
+            this.idleEnemies.Add(actionToken);
+            BaseEnemy baseEnemy = actionToken.GetComponent<BaseEnemy>();
+            baseEnemy.UpdatePlayerDistance();
+            baseEnemy.ChooseAbility();
+        }
+
+        this.idleEnemies = this.idleEnemies.Where(enemy =>
+        {
+            return enemy.isActiveAndEnabled;
+        }).ToList();
+
+        //sort by distance from player to preception range border to later on aggro in the correct order
+        this.idleEnemies.Sort((x, y) =>
+        {
+            BaseEnemy xBaseEnemy = x.GetComponent<BaseEnemy>();
+            BaseEnemy yBaseEnemy = y.GetComponent<BaseEnemy>();
+            float difference = (xBaseEnemy.GetDistanceFromPlayer() - xBaseEnemy.PERCEPTION_RANGE) - (yBaseEnemy.GetDistanceFromPlayer() - yBaseEnemy.PERCEPTION_RANGE);
+
+            if (difference < 0)
+            {
+                return -1;
+            }
+            else if (difference > 0)
+            {
+                return 1;
+            }
+
+            return 0;
+        });
     }
 
     public bool CanWalk()
