@@ -109,6 +109,13 @@ public class AbilityManager : MonoBehaviour
         //sufficient Mana available
         currentAbility = type;
         abilityActive = true;
+
+        BuffAbility buffAbility = ability as BuffAbility;
+
+        if (buffAbility != null)
+        {
+            UseAbility();
+        }
     }
 
     public void UseAbility()
@@ -168,9 +175,14 @@ public class AbilityManager : MonoBehaviour
 
     private void UseSelfBuff()
     {
-        Debug.Log("selfbuff");
         BuffAbility selfBuff = (BuffAbility)playerEnergy.GetAbilityOfType(AbilityType.SELF_BUFF);
         attackMultiplier = selfBuff.factor;
+        this.playerEnergy.energy -= selfBuff.GetManacost();
+
+        if (this.playerEnergy.energy <= 0)
+        {
+            EndAbilityPhase();
+        }
     }
 
     private void UseEnemyDefenseNerf()

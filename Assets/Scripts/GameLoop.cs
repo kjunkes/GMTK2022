@@ -91,7 +91,7 @@ public class GameLoop : MonoBehaviour
                 {
                     case PlayerActionState.DICE_SELECTION:
                         this.playerActionState = PlayerActionState.WALKING;
-                        this.endTurnButton.enabled = true;
+                        this.endTurnButton.gameObject.SetActive(true);
                         return;
                     case PlayerActionState.WALKING:
                         if (playerEnergy.energy == 0)
@@ -104,12 +104,16 @@ public class GameLoop : MonoBehaviour
                             {
                                 this.idleEnemies[0].StartAction();
                             }
+
+                            this.endTurnButton.SetButtonText("Skip Walking");
+                            this.endTurnButton.gameObject.SetActive(false);
                         }
                         else
                         {
                             this.playerActionState = PlayerActionState.ACTION;
 
                             abilityManager.StartAbilitySelection();
+                            this.endTurnButton.SetButtonText("End Turn");
                         }
 
                         return;
@@ -122,6 +126,9 @@ public class GameLoop : MonoBehaviour
                         {
                             this.idleEnemies[0].StartAction();
                         }
+
+                        this.endTurnButton.SetButtonText("Skip Walking");
+                        this.endTurnButton.gameObject.SetActive(false);
 
                         return;
                     default:
