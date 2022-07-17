@@ -8,9 +8,6 @@ using TMPro;
 
 public class GameLoop : MonoBehaviour
 {
-    public TextMeshProUGUI turnText;
-    public TextMeshProUGUI playerActionStateText;
-
     public enum Turn {
         PLAYER,
         ENEMY
@@ -59,27 +56,7 @@ public class GameLoop : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(currentTurn == Turn.ENEMY)
-        {
-            turnText.text = "ENEMY";
-            playerActionStateText.text = "";
-        } else
-        {
-            turnText.text = "PLAYER";
 
-            if (playerActionState == PlayerActionState.DICE_SELECTION)
-            {
-                playerActionStateText.text = "DICE_SELECTION";
-            }
-            else if (playerActionState == PlayerActionState.WALKING)
-            {
-                playerActionStateText.text = "WALKING";
-            }
-            else
-            {
-                playerActionStateText.text = "ACTION";
-            }
-        }
     }
 
     public void IncrementTurnState()
