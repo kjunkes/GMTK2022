@@ -12,6 +12,7 @@ public class DiceVisual : MonoBehaviour, IPointerClickHandler
     
     public int diceId;
     public float diceNumberWaitTime;
+    public float selectedDiceTransparency = 0.4f;
 
     // Next update in second
     private float nextUpdate = 0.1f;
@@ -78,6 +79,12 @@ public class DiceVisual : MonoBehaviour, IPointerClickHandler
             currentNumbers = new int[] { finalNumber };
 
             diceText.text = finalNumber.ToString();
+
+            // Change alpha channel of object
+            Color gameObjectColor = gameObject.GetComponent<Image>().color;
+            Debug.Log(selectedDiceTransparency);
+            gameObjectColor.a = selectedDiceTransparency;
+            gameObject.GetComponent<Image>().color = gameObjectColor;
 
             playerDice.EndRollingDice(finalNumber);
         }
