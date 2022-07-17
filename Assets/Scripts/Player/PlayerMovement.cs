@@ -15,23 +15,16 @@ public class PlayerMovement : MonoBehaviour
     private GameLoop gameLoop;
     private AStar astar;
 
-    //insert names of passable Tiles
-    private List<string> passableTiles = new List<string>()
-    {"green", "red", "64test", "woodFloor", "WoodWall"};
-
     //insert names of ending Tiles
     private List<string> endingTiles = new List<string>() { "red" };
 
     private List<Vector2Int> route = new List<Vector2Int>();
-
-    private Vector3 originalPosition;
 
     // Start is called before the first frame update
     void Start()
     {
         gameLoop = FindObjectOfType<GameLoop>();
         astar = FindObjectOfType<AStar>();
-        originalPosition = transform.position;
     }
 
     // Update is called once per frame
