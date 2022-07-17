@@ -5115,7 +5115,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SPEED: 3
-  WALKING_RANGE: 2
+  WALKING_RANGE: 4
   tilemap: {fileID: 2079676271}
   walkable: {fileID: 11400000, guid: 571bc81aa982c144397ae4b2540e8d2c, type: 2}
   blocked: {fileID: 11400000, guid: 91ad408512c61dd4faa24bc645cfef5b, type: 2}
@@ -12766,7 +12766,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SPEED: 3
-  WALKING_RANGE: 2
+  WALKING_RANGE: 4
   tilemap: {fileID: 2079676271}
   walkable: {fileID: 11400000, guid: 571bc81aa982c144397ae4b2540e8d2c, type: 2}
   blocked: {fileID: 11400000, guid: 91ad408512c61dd4faa24bc645cfef5b, type: 2}
@@ -13831,7 +13831,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SPEED: 3
-  WALKING_RANGE: 2
+  WALKING_RANGE: 4
   tilemap: {fileID: 2079676271}
   walkable: {fileID: 11400000, guid: 571bc81aa982c144397ae4b2540e8d2c, type: 2}
   blocked: {fileID: 11400000, guid: 91ad408512c61dd4faa24bc645cfef5b, type: 2}
@@ -14433,10 +14433,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4269b2d63531b484491aee0022dbe3f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  normalDiceCount: 2
-  highDiceCount: 2
-  lowDiceCount: 2
-  doubleDiceCount: 4
+  normalDiceCount: 8
+  highDiceCount: 0
+  lowDiceCount: 0
+  doubleDiceCount: 0
   normalDiceImage: {fileID: 21300000, guid: bcfdeb5c7ef59be46812f7b0ce77bebc, type: 3}
   highDiceImage: {fileID: 21300000, guid: 8ffcbdd248ffc444eb6b2b6e1293ca6d, type: 3}
   lowDiceImage: {fileID: 21300000, guid: 4feee9f1e36a0ff4ba2d7309536ac074, type: 3}
@@ -14700,7 +14700,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SPEED: 3
-  WALKING_RANGE: 2
+  WALKING_RANGE: 4
   tilemap: {fileID: 2079676271}
   walkable: {fileID: 11400000, guid: 571bc81aa982c144397ae4b2540e8d2c, type: 2}
   blocked: {fileID: 11400000, guid: 91ad408512c61dd4faa24bc645cfef5b, type: 2}
