@@ -54,7 +54,6 @@ public class BaseEnemy : MonoBehaviour
                     {
                         if (!this.actionToken.GetHasMovedThisTurn())
                         {
-                            Debug.Log("laufen");
                             //move if distance is too great and move has not yet occurred
                             Vector2Int playerPosition = new Vector2Int(Mathf.RoundToInt(playerHealth.transform.position.x), Mathf.RoundToInt(playerHealth.transform.position.y));
                             movement.InitiateMove(playerPosition);
@@ -62,14 +61,12 @@ public class BaseEnemy : MonoBehaviour
                         }
                         else
                         {
-                            Debug.Log("bereits gelaufen");
                             //if distance is still too great after the move has been executed, give back actiontoken
                             this.actionToken.EndAction();
                         }
                     }
                     else
                     {
-                        Debug.Log("schelle");
                         //if damaging ability has been chosen and player is in range, use the ability
                         ((DamagingAbility)abilityThisTurn).Use(playerHealth);
                         this.actionToken.EndAction();

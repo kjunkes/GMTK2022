@@ -229,6 +229,7 @@ MonoBehaviour:
   playerDice: {fileID: 1923192468}
   diceId: 1
   diceNumberWaitTime: 0.2
+  selectedDiceTransparency: 0.4
 --- !u!114 &17641053
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -584,6 +585,7 @@ MonoBehaviour:
   playerDice: {fileID: 1923192468}
   diceId: 5
   diceNumberWaitTime: 0.2
+  selectedDiceTransparency: 0.4
 --- !u!114 &181545028
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -787,7 +789,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 229883831}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -4, y: -5, z: 0}
+  m_LocalPosition: {x: 0, y: -3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -824,6 +826,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SPEED: 3
   WALKING_RANGE: 2
+  tilemap: {fileID: 565024134}
+  walkable: {fileID: 11400000, guid: d5d2947510d58a1429513ac3f9510c34, type: 2}
+  blocked: {fileID: 11400000, guid: be3fd587b38d2a841ab392fbf11bd703, type: 2}
 --- !u!114 &229883835
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1251,6 +1256,7 @@ MonoBehaviour:
   playerDice: {fileID: 1923192468}
   diceId: 3
   diceNumberWaitTime: 0.2
+  selectedDiceTransparency: 0.4
 --- !u!114 &375718997
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4506,6 +4512,7 @@ MonoBehaviour:
   playerDice: {fileID: 1923192468}
   diceId: 8
   diceNumberWaitTime: 0.2
+  selectedDiceTransparency: 0.4
 --- !u!114 &944158874
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4600,6 +4607,7 @@ MonoBehaviour:
   playerDice: {fileID: 1923192468}
   diceId: 7
   diceNumberWaitTime: 0.2
+  selectedDiceTransparency: 0.4
 --- !u!114 &1001247232
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4764,6 +4772,7 @@ MonoBehaviour:
   playerDice: {fileID: 1923192468}
   diceId: 0
   diceNumberWaitTime: 0.2
+  selectedDiceTransparency: 0.4
 --- !u!1 &1064630898
 GameObject:
   m_ObjectHideFlags: 0
@@ -5007,7 +5016,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1115826591}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -3, y: -3, z: 0}
+  m_LocalPosition: {x: -2, y: -1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -5044,6 +5053,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SPEED: 3
   WALKING_RANGE: 2
+  tilemap: {fileID: 565024134}
+  walkable: {fileID: 11400000, guid: d5d2947510d58a1429513ac3f9510c34, type: 2}
+  blocked: {fileID: 11400000, guid: be3fd587b38d2a841ab392fbf11bd703, type: 2}
 --- !u!114 &1115826595
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5417,6 +5429,7 @@ MonoBehaviour:
   playerDice: {fileID: 1923192468}
   diceId: 2
   diceNumberWaitTime: 0.2
+  selectedDiceTransparency: 0.4
 --- !u!114 &1204745539
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5511,6 +5524,7 @@ MonoBehaviour:
   playerDice: {fileID: 1923192468}
   diceId: 6
   diceNumberWaitTime: 0.2
+  selectedDiceTransparency: 0.4
 --- !u!114 &1262253435
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7058,6 +7072,7 @@ MonoBehaviour:
   playerDice: {fileID: 1923192468}
   diceId: 9
   diceNumberWaitTime: 0.2
+  selectedDiceTransparency: 0.4
 --- !u!114 &1801220016
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7477,6 +7492,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SPEED: 3
   WALKING_RANGE: 2
+  tilemap: {fileID: 565024134}
+  walkable: {fileID: 11400000, guid: d5d2947510d58a1429513ac3f9510c34, type: 2}
+  blocked: {fileID: 11400000, guid: be3fd587b38d2a841ab392fbf11bd703, type: 2}
 --- !u!114 &1975133904
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7818,6 +7836,7 @@ MonoBehaviour:
   playerDice: {fileID: 1923192468}
   diceId: 4
   diceNumberWaitTime: 0.2
+  selectedDiceTransparency: 0.4
 --- !u!114 &2071882803
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -2,25 +2,27 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class EnemyMovement : MonoBehaviour
 {
     public float SPEED = 3f;
     public int WALKING_RANGE = 2;
 
+    public Tilemap tilemap;
+
+    public TileBase walkable;
+    public TileBase blocked;
+
     private AStar astar;
-    private BaseEnemy baseEnemy;
 
     private List<Vector2Int> route = new List<Vector2Int>();
-
-    private Vector3 originalPosition;
 
     // Start is called before the first frame update
     void Start()
     {
         astar = FindObjectOfType<AStar>();
-        baseEnemy = FindObjectOfType<BaseEnemy>();
-        originalPosition = transform.position;
+        tilemap.SetTile(new Vector3Int(Mathf.RoundToInt(transform.position.x), Mathf.RoundToInt(transform.position.y), 0), blocked);
     }
 
     // Update is called once per frame
@@ -33,6 +35,12 @@ public class EnemyMovement : MonoBehaviour
             if (this.MoveAlongRoute())
             {
                 route.RemoveAt(0);
+
+                if(route.Count == 0)
+                {
+                    //set tile to blocked after move is completed
+                    tilemap.SetTile(new Vector3Int(Mathf.RoundToInt(transform.position.x), Mathf.RoundToInt(transform.position.y), 0), blocked);
+                }
             }
         }
     }
@@ -73,6 +81,9 @@ public class EnemyMovement : MonoBehaviour
             //if there is still a route to be walked or the target is not reachable, dont initiate a move
             return;
         }
+
+        //restore the tilemap at start position
+        tilemap.SetTile(new Vector3Int(Mathf.RoundToInt(transform.position.x), Mathf.RoundToInt(transform.position.y), 0), walkable);
 
         Vector2Int currentPosition = new Vector2Int(Mathf.RoundToInt(transform.position.x), Mathf.RoundToInt(transform.position.y));
         route = this.astar.CalculateRoute(currentPosition, target, 10000);
