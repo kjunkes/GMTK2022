@@ -40,7 +40,6 @@ public class PlayerMovement : MonoBehaviour
                 
                 if(route.Count == 0)
                 {
-                    Debug.Log("Walking complete");
                     CheckLevelComplete();
                     this.gameLoop.IncrementTurnState();
                 }
@@ -52,16 +51,15 @@ public class PlayerMovement : MonoBehaviour
     private bool MoveAlongRoute()
     {
         Vector2 moveDirection = (route[0] - (Vector2)transform.position);
-        moveDirection.Normalize();
+        moveDirection = NormalizeVector(moveDirection);
         moveDirection *= SPEED * Time.deltaTime;
         Vector3 moveDirection3D = new Vector3(moveDirection.x, moveDirection.y, 0);
         Vector3 result = transform.position + moveDirection3D;
 
         Vector2 transformDelta = route[0] - (Vector2)transform.position;
         Vector2 resultDelta = route[0] - (Vector2)result;
-
-        transformDelta.Normalize();
-        resultDelta.Normalize();
+        transformDelta = NormalizeVector(transformDelta);
+        resultDelta = NormalizeVector(resultDelta);
         float xProduct = transformDelta.x * resultDelta.x;
         float yProduct = transformDelta.y * resultDelta.y;
 
@@ -102,6 +100,39 @@ public class PlayerMovement : MonoBehaviour
             route = new List<Vector2Int>();
             this.gameLoop.IncrementTurnState();
         }
+    }
+
+    public Vector2 NormalizeVector(Vector2 value)
+    {
+        float x, y;
+
+        if (value.x < 0)
+        {
+            x = -1;
+        }
+        else if (value.x > 0)
+        {
+            x = 1;
+        }
+        else
+        {
+            x = 0;
+        }
+
+        if (value.y < 0)
+        {
+            y = -1;
+        }
+        else if (value.y > 0)
+        {
+            y = 1;
+        }
+        else
+        {
+            y = 0;
+        }
+
+        return new Vector2(x, y);
     }
 
     private bool CheckLevelComplete()
