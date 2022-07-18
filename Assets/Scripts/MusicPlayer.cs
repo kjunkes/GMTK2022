@@ -26,6 +26,7 @@ public class MusicPlayer : MonoBehaviour
         {
             audioSource.clip = loopClip;
             audioSource.Play();
+            audioSource.loop = true;
         }
     }
 }
