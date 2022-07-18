@@ -74,7 +74,7 @@ public class AbilityManager : MonoBehaviour
         }
     }
 
-    private void EndAbilityPhase()
+    public void EndAbilityPhase()
     {
         foreach (Transform child in transform)
         {

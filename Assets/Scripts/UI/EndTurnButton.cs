@@ -9,11 +9,13 @@ public class EndTurnButton : MonoBehaviour
     private GameLoop gameLoop;
     private Button button;
     private TextMeshProUGUI buttonText;
+    private AbilityManager abilityManager;
 
     // Start is called before the first frame update
     void Start()
     {
         gameLoop = FindObjectOfType<GameLoop>();
+        abilityManager = FindObjectOfType<AbilityManager>();
         button = gameObject.GetComponent<Button>();
         buttonText = button.gameObject.transform.GetComponentInChildren<TextMeshProUGUI>();
         button.onClick.AddListener(EndTurn);
@@ -35,7 +37,7 @@ public class EndTurnButton : MonoBehaviour
         }
         else if(this.gameLoop.GetPlayerActionState() == GameLoop.PlayerActionState.ACTION)
         {
-            this.gameLoop.IncrementTurnState();
+            this.abilityManager.EndAbilityPhase();
             return;
         }
     }
