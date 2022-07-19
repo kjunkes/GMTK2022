@@ -57,7 +57,6 @@ public class AbilityDescriptionMouseOver : MonoBehaviour, IPointerExitHandler, I
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        Debug.Log("Test");
         abilityDescriptionPanel.SetActive(true);
         abilityName.text = currentAbilityName;
         abilityCost.text = currentAbilityCost;        

@@ -67,59 +67,77 @@ public class GameLoop : MonoBehaviour
                 switch (this.playerActionState)
                 {
                     case PlayerActionState.DICE_SELECTION:
-                        this.playerActionState = PlayerActionState.WALKING;
-                        this.endTurnButton.gameObject.SetActive(true);
+                        ProceedToWalking();
                         return;
                     case PlayerActionState.WALKING:
                         if (playerEnergy.energy == 0)
                         {
-                            this.currentTurn = Turn.ENEMY;
-
-                            UpdateIdleEnemies();
-
-                            if (this.idleEnemies.Count > 0)
-                            {
-                                this.idleEnemies[0].StartAction();
-                            }
-
-                            this.endTurnButton.SetButtonText("Skip Walking");
-                            this.endTurnButton.gameObject.SetActive(false);
+                            ProceedToEnemyTurn();
                         }
                         else
                         {
-                            this.playerActionState = PlayerActionState.ACTION;
-
-                            abilityManager.StartAbilitySelection();
-                            this.endTurnButton.SetButtonText("End Turn");
+                            ProceedToAction();
                         }
 
                         return;
                     case PlayerActionState.ACTION:
-                        this.currentTurn = Turn.ENEMY;
-
-                        UpdateIdleEnemies();
-
-                        if (this.idleEnemies.Count > 0)
-                        {
-                            this.idleEnemies[0].StartAction();
-                        }
-
-                        this.endTurnButton.SetButtonText("Skip Walking");
-                        this.endTurnButton.gameObject.SetActive(false);
-
+                        ProceedToEnemyTurn();
                         return;
                     default:
                         break;
                 }
                 break;
             case Turn.ENEMY:
-                this.currentTurn = Turn.PLAYER;
-                this.playerActionState = PlayerActionState.DICE_SELECTION;
-
-                this.playerDice.StartRollingDice();
+                ProceedToDiceRoll();
                 return;
             default:
                 break;
+        }
+    }
+
+    private void ProceedToDiceRoll()
+    {
+        this.currentTurn = Turn.PLAYER;
+        this.playerActionState = PlayerActionState.DICE_SELECTION;
+        this.endTurnButton.gameObject.SetActive(false);
+        this.playerDice.StartRollingDice();
+    }
+
+    private void ProceedToWalking()
+    {
+        this.playerActionState = PlayerActionState.WALKING;
+        this.endTurnButton.SetButtonText("Skip Walking");
+        this.endTurnButton.gameObject.SetActive(true);
+    }
+
+    private void ProceedToAction()
+    {
+        if(playerEnergy.energy > 0)
+        {
+            this.playerActionState = PlayerActionState.ACTION;
+            abilityManager.StartAbilitySelection();
+            this.endTurnButton.gameObject.SetActive(true);
+            this.endTurnButton.SetButtonText("End Turn");
+        }
+        else
+        {
+            ProceedToEnemyTurn();
+        }
+    }
+
+    private void ProceedToEnemyTurn()
+    {
+        UpdateIdleEnemies();
+
+        if (this.idleEnemies.Count > 0)
+        {
+            this.endTurnButton.gameObject.SetActive(false);
+            this.currentTurn = Turn.ENEMY;
+            this.idleEnemies[0].StartAction();
+        }
+        else
+        {
+            ProceedToDiceRoll();
         }
     }
 
