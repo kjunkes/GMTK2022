@@ -42,12 +42,6 @@ public class GameLoop : MonoBehaviour
     private Turn currentTurn = Turn.PLAYER;
     private PlayerActionState playerActionState = PlayerActionState.DICE_SELECTION;
 
-    //variables to accomodate calling a function with delay
-    //the function that is to be called after a delay
-    Action action;
-    //the time at which the method is supposed to fire
-    float methodTime = 0f;
-
     //the standard delay before dice selection
     private const float DICE_SELECTION_DELAY = 0.5f;
 
@@ -66,11 +60,7 @@ public class GameLoop : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(action != null && methodTime < Time.time)
-        {
-            action();
-            action = null;
-        }
+
     }
 
     public void IncrementTurnState()
@@ -102,7 +92,7 @@ public class GameLoop : MonoBehaviour
                 }
                 break;
             case Turn.ENEMY:
-                CallMethodAfterDelay(ProceedToDiceRoll, DICE_SELECTION_DELAY);
+                Invoke("ProceedToDiceRoll", DICE_SELECTION_DELAY);
                 return;
             default:
                 break;
@@ -151,16 +141,7 @@ public class GameLoop : MonoBehaviour
         }
         else
         {
-            CallMethodAfterDelay(ProceedToDiceRoll, DICE_SELECTION_DELAY);
-        }
-    }
-
-    private void CallMethodAfterDelay(Action action, float delay)
-    {
-        if(this.methodTime < Time.time)
-        {
-            this.action = action;
-            this.methodTime = Time.time + delay;
+            Invoke("ProceedToDiceRoll", DICE_SELECTION_DELAY);
         }
     }
 
@@ -182,7 +163,7 @@ public class GameLoop : MonoBehaviour
             return enemy.isActiveAndEnabled;
         }).ToList();
 
-        //sort by distance from player to preception range border to later on aggro in the correct order
+        //sort by distance from player to perception range border to later on aggro in the correct order
         this.idleEnemies.Sort((x, y) =>
         {
             BaseEnemy xBaseEnemy = x.GetComponent<BaseEnemy>();
