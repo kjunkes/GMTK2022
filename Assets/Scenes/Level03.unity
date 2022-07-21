@@ -55389,12 +55389,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39b0e145e534e114f83a4c9edd66fa05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  punchButton: {fileID: 0}
-  roundhouseKickButton: {fileID: 0}
-  stoneThrowButton: {fileID: 0}
-  shotButton: {fileID: 0}
-  selfBuffButton: {fileID: 0}
-  enemyDefenseNerfButton: {fileID: 0}
+  punchButton: {fileID: 1033773285}
+  roundhouseKickButton: {fileID: 1212587869}
+  stoneThrowButton: {fileID: 361996810}
+  shotButton: {fileID: 982650224}
+  selfBuffButton: {fileID: 1932579774}
+  enemyDefenseNerfButton: {fileID: 1257434956}
 --- !u!1 &1450012201
 GameObject:
   m_ObjectHideFlags: 0
