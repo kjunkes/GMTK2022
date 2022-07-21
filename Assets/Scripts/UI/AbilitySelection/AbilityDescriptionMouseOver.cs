@@ -15,11 +15,16 @@ public class AbilityDescriptionMouseOver : MonoBehaviour, IPointerExitHandler, I
     private string currentAbilityName;
     private string currentAbilityCost;
 
+    // Panel Description Movement
+    private Vector3 iconPosition;
+    private Vector3 newPanelPosition;
+
     // Start is called before the first frame update
     void Start()
     {
         gameObjectName = gameObject.name;
-
+        // Ability Description
+        // Depends on button name of object!
         switch (gameObjectName)
         {
             case "PunchButton":
@@ -47,6 +52,12 @@ public class AbilityDescriptionMouseOver : MonoBehaviour, IPointerExitHandler, I
                 currentAbilityCost = "1";
                 break;
         }
+
+        // Calculate Ability Panel Description
+        iconPosition = gameObject.transform.position;
+
+        newPanelPosition = abilityDescriptionPanel.transform.position;
+        newPanelPosition.y = iconPosition.y;
     }
 
     // Update is called once per frame
@@ -59,7 +70,8 @@ public class AbilityDescriptionMouseOver : MonoBehaviour, IPointerExitHandler, I
     {
         abilityDescriptionPanel.SetActive(true);
         abilityName.text = currentAbilityName;
-        abilityCost.text = currentAbilityCost;        
+        abilityCost.text = currentAbilityCost;
+        abilityDescriptionPanel.transform.position = newPanelPosition;
     }
 
     public void OnPointerExit(PointerEventData eventData)
